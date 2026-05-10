@@ -10,12 +10,13 @@ export const metadata: Metadata = {
     "Selected mobile and web projects built with React, Next.js, React Native, Flutter, and Firebase.",
 };
 
-export default function ProjectsPage({
+export default async function ProjectsPage({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: Promise<{ search?: string }>;
 }) {
-  const initialSearch = searchParams?.search ?? "";
+  const params = await searchParams;
+  const initialSearch = params?.search ?? "";
 
   return (
     <Container className="py-16 sm:py-20">
