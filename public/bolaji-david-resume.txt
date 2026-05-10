@@ -1,0 +1,31 @@
+Bolaji David
+Mobile & Web Application Developer
+Ibadan, Nigeria
+Email: bolajidavid05@gmail.com
+
+PROFESSIONAL SUMMARY
+I help startups and growing teams ship polished React/Next.js and Flutter/React Native apps with clean architecture and dependable delivery.
+
+CORE SKILLS
+- Frontend: React, Next.js, TypeScript, Tailwind CSS
+- Mobile: Flutter, React Native, Riverpod
+- Backend: Firebase, Node.js, REST APIs
+- Tools: Git, GitHub, VS Code, Figma
+
+EXPERIENCE
+Freelance Mobile & Web Developer (2022 - Present)
+- Build and maintain web and mobile products from idea to deployment.
+- Implement reusable component systems for faster feature delivery.
+- Integrate Firebase services for auth, data, and storage.
+
+Personal Product Engineering (2020 - Present)
+- Built case-study projects across messaging, dashboards, and portfolio experiences.
+- Improved UI quality and maintainability through scalable architecture patterns.
+
+EDUCATION
+B.Sc. Computer Science - University of Ibadan
+
+LINKS
+GitHub: https://github.com/bolajidavid25
+LinkedIn: https://www.linkedin.com/in/bolaji-david-135268241/
+Portfolio: http://localhost:3000

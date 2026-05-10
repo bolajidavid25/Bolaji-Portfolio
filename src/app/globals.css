@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+:root {
+  --bg: 255 255 255;
+  --fg: 13 16 23;
+  --muted: 100 116 139;
+  --card: 255 255 255;
+  --border: 226 232 240;
+  --accentA: 37 99 235; /* blue */
+  --accentB: 37 99 235; /* blue */
+  --ring: 37 99 235;
+}
+
+.dark {
+  --bg: 6 8 14;
+  --fg: 226 232 240;
+  --muted: 148 163 184;
+  --card: 10 12 20;
+  --border: 30 41 59;
+  --accentA: 96 165 250;
+  --accentB: 96 165 250;
+  --ring: 96 165 250;
+}
+
+@theme inline {
+  --color-background: rgb(var(--bg));
+  --color-foreground: rgb(var(--fg));
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: light;
+  font-size: clamp(17px, 0.45vw + 15px, 21px);
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+html:not(.dark) body {
+  background-color: #ffffff;
+}
+
+html.dark body {
+  background-image:
+    radial-gradient(
+      rgba(255, 255, 255, 0.9) 1px,
+      transparent 1.6px
+    ),
+    radial-gradient(
+      rgba(255, 255, 255, 0.6) 1px,
+      transparent 1.6px
+    );
+  background-size:
+    140px 140px,
+    220px 220px;
+  background-position:
+    0 0,
+    40px 60px;
+  background-attachment: fixed;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body > div,
+main,
+section,
+header,
+footer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+button,
+label {
+  overflow-wrap: anywhere;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+::selection {
+  background: color-mix(in oklab, rgb(var(--accentA)) 25%, transparent);
+}
+
+@layer utilities {
+  .bg-galaxy {
+    position: relative;
+    background: transparent;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .bg-galaxy::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1.6px),
+      radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1.6px),
+      radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1.6px);
+    background-size:
+      120px 120px,
+      190px 190px,
+      260px 260px;
+    background-position:
+      0 0,
+      40px 70px,
+      90px 20px;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+
+  html:not(.dark) .bg-galaxy::before {
+    display: none;
+  }
+
+  .bg-galaxy > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bg-grid {
+    background-image: radial-gradient(
+        circle at 1px 1px,
+        color-mix(in oklab, rgb(var(--border)) 55%, transparent) 1px,
+        transparent 0
+      ),
+      radial-gradient(
+        circle at 1px 1px,
+        color-mix(in oklab, rgb(var(--border)) 35%, transparent) 1px,
+        transparent 0
+      );
+    background-size:
+      24px 24px,
+      72px 72px;
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  .text-gradient {
+    color: rgb(var(--accentA));
+  }
+
+  .glass {
+    background: color-mix(in oklab, rgb(var(--card)) 72%, transparent);
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
