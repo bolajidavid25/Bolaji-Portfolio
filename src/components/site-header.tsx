@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -71,7 +72,7 @@ export function SiteHeader() {
           <form
             onSubmit={onSearchSubmit}
             className={cn(
-              "flex h-10 items-center overflow-hidden rounded-full ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_85%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_85%,transparent)] transition-all duration-300 ease-out",
+              "hidden sm:flex h-10 items-center overflow-hidden rounded-full ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_85%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_85%,transparent)] transition-all duration-300 ease-out",
               showSearch ? "w-64 px-2" : "w-10 px-0",
             )}
           >
@@ -103,6 +104,7 @@ export function SiteHeader() {
             />
           </form>
           <ThemeToggle />
+          <MobileNav />
         </div>
       </Container>
     </header>
