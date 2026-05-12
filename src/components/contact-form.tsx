@@ -21,6 +21,12 @@ export function ContactForm() {
     email: "",
     message: "",
   });
+  const [touched, setTouched] = React.useState({
+    name: false,
+    email: false,
+    message: false,
+  });
+  const [wasSubmitted, setWasSubmitted] = React.useState(false);
 
   const errors = React.useMemo(() => {
     const e: Partial<Record<keyof typeof values, string>> = {};
@@ -36,6 +42,7 @@ export function ContactForm() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setWasSubmitted(true);
     if (!canSubmit) return;
 
     setState({ status: "submitting" });
@@ -63,6 +70,8 @@ export function ContactForm() {
       }
       setState({ status: "success" });
       setValues({ name: "", email: "", message: "" });
+      setTouched({ name: false, email: false, message: false });
+      setWasSubmitted(false);
     } catch (error) {
       console.error("Contact form error", error);
       setState({
@@ -78,16 +87,18 @@ export function ContactForm() {
         label="Name"
         value={values.name}
         onChange={(v) => setValues((s) => ({ ...s, name: v }))}
+        onBlur={() => setTouched((s) => ({ ...s, name: true }))}
         placeholder="Your name"
-        error={errors.name}
+        error={errors.name && (touched.name || wasSubmitted) ? errors.name : undefined}
         autoComplete="name"
       />
       <Field
         label="Email"
         value={values.email}
         onChange={(v) => setValues((s) => ({ ...s, email: v }))}
+        onBlur={() => setTouched((s) => ({ ...s, email: true }))}
         placeholder="you@example.com"
-        error={errors.email}
+        error={errors.email && (touched.email || wasSubmitted) ? errors.email : undefined}
         autoComplete="email"
         inputMode="email"
       />
@@ -95,8 +106,9 @@ export function ContactForm() {
         label="Message"
         value={values.message}
         onChange={(v) => setValues((s) => ({ ...s, message: v }))}
+        onBlur={() => setTouched((s) => ({ ...s, message: true }))}
         placeholder="Tell me about your project..."
-        error={errors.message}
+        error={errors.message && (touched.message || wasSubmitted) ? errors.message : undefined}
         textarea
       />
 

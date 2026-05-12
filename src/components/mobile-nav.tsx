@@ -29,7 +29,7 @@ export function MobileNav() {
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative inline-flex h-10 w-10 items-center justify-center rounded-full md:hidden"
+        className="relative z-[999999] inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgb(var(--card))] text-[rgb(var(--fg))] ring-1 ring-inset ring-[rgb(var(--border))] hover:bg-[rgb(var(--border))] md:hidden"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
@@ -69,7 +69,7 @@ export function MobileNav() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-40 md:hidden bg-[color-mix(in_oklab,rgb(var(--bg))_50%,transparent)]"
+              className="fixed inset-0 z-[99998] md:hidden bg-black/40 backdrop-blur-sm"
             />
 
             {/* Menu Panel */}
@@ -78,14 +78,24 @@ export function MobileNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed right-0 top-16 z-50 h-[calc(100vh-4rem)] w-full max-w-xs overflow-y-auto rounded-l-2xl bg-[color-mix(in_oklab,rgb(var(--card))_95%,transparent)] backdrop-blur border-l border-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] md:hidden shadow-lg"
+              className="fixed right-0 top-0 z-[999999] h-screen w-full max-w-xs overflow-y-auto rounded-l-3xl bg-[rgb(var(--card))] border-l border-[rgb(var(--border))] md:hidden shadow-2xl"
             >
-              <div className="flex flex-col gap-2 p-6">
+              <div className="flex items-center justify-between border-b border-[rgb(var(--border))] px-6 py-5">
+                <span className="text-lg font-semibold text-[rgb(var(--fg))]">Menu</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgb(var(--card))] text-[rgb(var(--fg))] transition hover:bg-[rgb(var(--border))]"
+                  aria-label="Close menu"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="flex flex-col gap-3 p-6">
                 {nav.map((item, index) => {
                   const active =
                     item.href === "/"
                       ? pathname === "/"
-                      : pathname?.startsWith(item.href);
+                      : pathname === item.href || pathname?.startsWith(`${item.href}/`);
 
                   return (
                     <motion.div
@@ -96,12 +106,12 @@ export function MobileNav() {
                     >
                       <Link
                         href={item.href}
+                        aria-current={active ? "page" : undefined}
                         className={cn(
-                          "block rounded-lg px-4 py-3 text-base font-medium transition-all",
-                          "hover:bg-[color-mix(in_oklab,rgb(var(--card))_75%,transparent)]",
+                          "block rounded-3xl px-4 py-4 text-base font-semibold transition-all text-[rgb(var(--fg))]",
                           active
-                            ? "bg-[color-mix(in_oklab,rgb(var(--card))_85%,rgb(var(--accentA))_10%)] text-[rgb(var(--accentA))] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)]"
-                            : "text-[rgb(var(--fg))]",
+                            ? "bg-[rgb(var(--border))] shadow-[0_8px_24px_-14px_rgba(0,0,0,0.35)]"
+                            : "hover:bg-[rgb(var(--border))]",
                         )}
                       >
                         {item.label}

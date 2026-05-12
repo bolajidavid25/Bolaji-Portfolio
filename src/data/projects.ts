@@ -67,7 +67,7 @@ export const projects: Project[] = [
     tech: ["Flutter", "Firebase", "Riverpod", "ZegoCloud", "WebRTC"],
     links: {
       github: "https://github.com/bolajidavid25/Connevo",
-      live: "https://example.com",
+      live: "https://drive.google.com/file/d/1N_Cf9IRcJvKyjIYERccuWGhaLglRyrPj/view?usp=sharing",
     },
     featured: true,
   },
