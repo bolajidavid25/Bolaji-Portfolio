@@ -108,10 +108,10 @@ export function MobileNav() {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "block rounded-3xl px-4 py-4 text-base font-semibold transition-all text-[rgb(var(--fg))]",
+                          "block rounded-3xl px-4 py-4 text-base font-semibold transition-all",
                           active
-                            ? "bg-[rgb(var(--border))] shadow-[0_8px_24px_-14px_rgba(0,0,0,0.35)]"
-                            : "hover:bg-[rgb(var(--border))]",
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                            : "text-[rgb(var(--fg))] hover:bg-[rgb(var(--border))]",
                         )}
                       >
                         {item.label}

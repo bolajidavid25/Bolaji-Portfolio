@@ -8,7 +8,7 @@ export const profile = {
   valueProposition:
     "I help startups and growing teams ship polished React/Next.js and Flutter/React Native apps with clean architecture and dependable delivery.",
   availability: "Open to opportunities",
-  yearsExperience: "6+",
+  yearsExperience: "3+",
   resumeUrl: "/resume",
   links: {
     email: "bolajidavid05@gmail.com",

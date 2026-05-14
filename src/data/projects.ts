@@ -9,6 +9,7 @@ export type Project = {
   features: string[];
   preview: string;
   image?: string;
+  screenshots?: { src: string; caption: string; orientation?: "portrait" | "landscape" }[];
   category: ProjectCategory;
   tech: string[];
   links: {
@@ -37,8 +38,15 @@ export const projects: Project[] = [
     preview:
       "Mobile assistant interface focused on voice capture and structured AI responses.",
     image: "/projects/Dynamics-ai.webp",
+    screenshots: [
+      { src: "/projects/Dynamics-ai.webp", caption: "Dynamics AI — Central hub highlighting the intelligent voice tracking.", orientation: "landscape" },
+      { src: "/projects/dynamics-1.jpeg", caption: "Splash Screen — The clean, welcoming and fast initial launch sequence.", orientation: "portrait" },
+      { src: "/projects/dynamics-2.jpeg", caption: "Light Mode — A bright, user-friendly chat interface for daytime visibility.", orientation: "portrait" },
+      { src: "/projects/dynamics-3.jpeg", caption: "Dark Mode — Sleek, high-contrast theme optimized for reduced eye strain.", orientation: "portrait" },
+      { src: "/projects/dynamics-4.jpeg", caption: "Voice Settings — Configuration panel to natively adjust speech rate and pitch.", orientation: "portrait" },
+    ],
     category: "Flutter",
-    tech: ["Flutter", "AI Voice Processing", "Mobile UI", "API Integration"],
+    tech: ["AI Voice Processing", "Mobile UI", "API Integration"],
     links: {
       github: "https://github.com/bolajidavid25/Dynamics-Ai",
       live: "https://drive.google.com/file/d/166GO-3C7lIC1OlNaZY7NI9B8ZH7Db14p/view?usp=drive_link",
@@ -63,8 +71,9 @@ export const projects: Project[] = [
     ],
     preview: "Connevo mobile interface with chat, multimedia sharing, and live call readiness.",
     image: "/projects/connevo.png",
+    screenshots: [{ src: "/projects/connevo.png", caption: "Connevo main chat view" }],
     category: "Flutter",
-    tech: ["Flutter", "Firebase", "Riverpod", "ZegoCloud", "WebRTC"],
+    tech: ["Firebase", "Riverpod", "ZegoCloud", "WebRTC"],
     links: {
       github: "https://github.com/bolajidavid25/Connevo",
       live: "https://drive.google.com/file/d/1N_Cf9IRcJvKyjIYERccuWGhaLglRyrPj/view?usp=sharing",
@@ -88,7 +97,7 @@ export const projects: Project[] = [
     ],
     preview: "Desktop portfolio hero section with highlighted stack and call-to-action.",
     category: "Next.js",
-    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Vercel"],
+    tech: ["Tailwind CSS", "Framer Motion", "Vercel"],
     links: {
       github: "https://github.com/your-username/portfolio",
       live: "https://example.com",
@@ -112,8 +121,9 @@ export const projects: Project[] = [
     ],
     preview: "Analytics dashboard preview with farm inventory charts and task modules.",
     image: "/projects/dons-farm.png",
+    screenshots: [{ src: "/projects/dons-farm.png", caption: "Dashboard overview" }],
     category: "React",
-    tech: ["React", "Tailwind CSS", "Firebase", "Charts"],
+    tech: ["Tailwind CSS", "Firebase", "Charts"],
     links: {
       github: "",
       live: "https://donsfarm.com.ng",

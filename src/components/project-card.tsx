@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, ExternalLink, Github } from "lucide-react";
+import { CheckCircle2, ExternalLink, Github, ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
@@ -12,7 +15,13 @@ export function ProjectCard({
   project: Project;
   compact?: boolean;
 }) {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  const screenshots = project.screenshots || [];
+  const hasScreenshots = screenshots.length > 0;
+
   return (
+    <>
     <article
       className={cn(
         "group overflow-hidden rounded-2xl ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_85%,transparent)]",
@@ -44,11 +53,6 @@ export function ProjectCard({
             {project.title}
           </p>
           <p className="mt-1 text-xs text-white/70">{project.category}</p>
-        </div>
-        <div className="absolute left-4 top-4">
-          <Badge className="bg-black/30 text-white ring-white/15 backdrop-blur">
-            {project.category}
-          </Badge>
         </div>
       </div>
 
@@ -117,9 +121,66 @@ export function ProjectCard({
               Live Demo
             </Link>
           ) : null}
+          {hasScreenshots ? (
+            <button
+              onClick={() => setIsPreviewOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full px-3 py-2 hover:bg-[color-mix(in_oklab,rgb(var(--card))_75%,transparent)] transition"
+            >
+              <ImageIcon className="h-4 w-4" />
+              Preview
+            </button>
+          ) : null}
         </div>
       </div>
     </article>
+    {isPreviewOpen && hasScreenshots && (
+      <div 
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md" 
+        onClick={() => setIsPreviewOpen(false)}
+      >
+        <button 
+          onClick={() => setIsPreviewOpen(false)} 
+          className="absolute top-4 right-4 md:top-6 md:right-6 z-[60] p-3 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all backdrop-blur"
+          aria-label="Close Preview"
+        >
+          <X className="h-6 w-6" />
+        </button>
+
+        <div 
+          className="relative w-full overflow-x-auto flex snap-x snap-mandatory gap-8 items-center px-6 md:px-[15vw] py-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          {screenshots.map((img, i) => {
+            const isPortrait = img.orientation === "portrait";
+            return (
+              <div 
+                key={i} 
+                className={`relative flex flex-col items-center flex-none snap-center shrink-0 group ${
+                  isPortrait ? "w-[80vw] sm:w-[50vw] md:w-[35vw] max-w-[400px]" : "w-[85vw] md:w-[70vw] max-w-5xl"
+                }`}
+              >
+                <div className={`relative w-full rounded-2xl overflow-hidden ring-1 ring-white/10 bg-black/50 shadow-2xl transition duration-500 group-hover:ring-white/30 ${
+                  isPortrait ? "aspect-[9/18]" : "aspect-[4/3] md:aspect-video"
+                }`}>
+                <Image 
+                  src={img.src} 
+                  alt={`${project.title} screenshot - ${img.caption}`} 
+                  fill 
+                  className="object-contain" 
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                  priority={i === 0}
+                />
+              </div>
+              <p className="mt-5 text-center text-white/90 text-sm md:text-base tracking-wide font-medium bg-black/40 px-6 py-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg">
+                <span className="opacity-60 mr-2">{i + 1} / {screenshots.length}</span> {img.caption}
+              </p>
+            </div>
+            );
+          })}
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 

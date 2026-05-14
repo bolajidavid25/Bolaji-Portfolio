@@ -139,7 +139,7 @@ export default function Home() {
                 <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl bg-[color-mix(in_oklab,rgb(var(--card))_70%,transparent)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)]">
                   <Rocket className="h-4 w-4 text-[rgb(var(--accentB))]" />
                 </div>
-                <p className="mt-3 text-2xl font-semibold tracking-tight">6+</p>
+                <p className="mt-3 text-2xl font-semibold tracking-tight">3+</p>
                 <p className="mt-1 text-xs text-[rgb(var(--muted))]">
                   Years of Experience
                 </p>

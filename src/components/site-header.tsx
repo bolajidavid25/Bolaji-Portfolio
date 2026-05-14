@@ -37,7 +37,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] bg-[color-mix(in_oklab,rgb(var(--bg))_70%,transparent)] backdrop-blur">
+    <header className="sticky top-0 z-[9999] border-b border-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] bg-[rgb(var(--bg))]">
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="font-semibold tracking-tight">
           <span className="text-gradient">Bolaji</span>{" "}
@@ -59,7 +59,7 @@ export function SiteHeader() {
                 className={cn(
                   "rounded-full px-4 py-2 text-sm transition hover:bg-[color-mix(in_oklab,rgb(var(--card))_75%,transparent)]",
                   active &&
-                    "bg-[color-mix(in_oklab,rgb(var(--card))_85%,rgb(var(--accentA))_10%)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)]",
+                    "bg-blue-600 text-white shadow-md",
                 )}
               >
                 {item.label}

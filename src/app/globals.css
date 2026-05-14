@@ -154,6 +154,10 @@ svg {
     z-index: 1;
   }
 
+  .bg-galaxy > header {
+    z-index: 9999;
+  }
+
   .bg-grid {
     background-image: radial-gradient(
         circle at 1px 1px,
