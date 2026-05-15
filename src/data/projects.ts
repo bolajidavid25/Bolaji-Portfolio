@@ -71,7 +71,17 @@ export const projects: Project[] = [
     ],
     preview: "Connevo mobile interface with chat, multimedia sharing, and live call readiness.",
     image: "/projects/connevo.png",
-    screenshots: [{ src: "/projects/connevo.png", caption: "Connevo main chat view" }],
+    screenshots: [
+      { src: "/projects/connevo/connevo-3.png", caption: "Splash screen — The clean, welcoming initial launch sequence for Connevo.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-9.png", caption: "Sign Up screen — Simple user registration flow for creating a new account.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-6.png", caption: "Login screen — Secure and quick access for returning users to connect seamlessly.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-2.png", caption: "Profile screen — Intuitive interface for users to manage their account information.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-1.png", caption: "Message screen — Central hub displaying all active peer-to-peer and group conversations.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-4.png", caption: "Chat screen — Real-time 1-on-1 messaging interface with typing indicators and timestamps.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-5.png", caption: "Group chat screen — Seamless multi-user communication channel for team collaboration.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-8.png", caption: "New chat screen — A structured contact list letting users easily start new private conversations.", orientation: "portrait" },
+      { src: "/projects/connevo/connevo-7.png", caption: "New Group screen — Simple participant selection interface for fast group creation.", orientation: "portrait" },
+    ],
     category: "Flutter",
     tech: ["Firebase", "Riverpod", "ZegoCloud", "WebRTC"],
     links: {
