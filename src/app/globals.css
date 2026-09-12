@@ -1,190 +1,546 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────────── */
 :root {
-  --bg: 255 255 255;
+  --bg: 7 9 15;
+  --fg: 226 232 240;
+  --muted: 148 163 184;
+  --card: 13 16 28;
+  --border: 30 35 58;
+  --accentA: 139 92 246;
+  --accentB: 6 182 212;
+  --ring: 139 92 246;
+}
+
+.light {
+  --bg: 248 250 255;
   --fg: 13 16 23;
   --muted: 100 116 139;
   --card: 255 255 255;
-  --border: 226 232 240;
-  --accentA: 37 99 235; /* blue */
-  --accentB: 37 99 235; /* blue */
-  --ring: 37 99 235;
-}
-
-.dark {
-  --bg: 6 8 14;
-  --fg: 226 232 240;
-  --muted: 148 163 184;
-  --card: 10 12 20;
-  --border: 30 41 59;
-  --accentA: 96 165 250;
-  --accentB: 96 165 250;
-  --ring: 96 165 250;
+  --border: 220 225 240;
+  --accentA: 109 40 217;
+  --accentB: 8 145 178;
+  --ring: 109 40 217;
 }
 
 @theme inline {
   --color-background: rgb(var(--bg));
   --color-foreground: rgb(var(--fg));
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
+/* ─────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────── */
 html {
-  color-scheme: light;
-  font-size: clamp(17px, 0.45vw + 15px, 21px);
-}
-html.dark {
-  color-scheme: dark;
+  font-size: clamp(15px, 0.4vw + 14px, 18px);
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: rgb(var(--bg));
   color: rgb(var(--fg));
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  line-height: 1.65;
   overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none; /* hide default cursor — our custom cursor replaces it */
 }
 
-html:not(.dark) body {
-  background-color: #ffffff;
+/* Restore cursor on touch devices */
+@media (hover: none) {
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
 }
 
-html.dark body {
-  background-image:
-    radial-gradient(
-      rgba(255, 255, 255, 0.9) 1px,
-      transparent 1.6px
-    ),
-    radial-gradient(
-      rgba(255, 255, 255, 0.6) 1px,
-      transparent 1.6px
-    );
-  background-size:
-    140px 140px,
-    220px 220px;
-  background-position:
-    0 0,
-    40px 60px;
-  background-attachment: fixed;
-}
-
-html,
-body {
+html, body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
 }
 
-body > div,
-main,
-section,
-header,
-footer {
+body > div, main, section, header, footer {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-span,
-button,
-label {
+h1, h2, h3, h4, h5, h6, p, a, span, button, label {
   overflow-wrap: anywhere;
 }
 
-img,
-video,
-canvas,
-svg {
+img, video, canvas, svg {
   max-width: 100%;
 }
 
 ::selection {
-  background: color-mix(in oklab, rgb(var(--accentA)) 25%, transparent);
+  background: color-mix(in oklab, rgb(var(--accentA)) 30%, transparent);
+  color: rgb(var(--fg));
 }
 
+/* ─────────────────────────────────────────────
+   CUSTOM CURSOR
+───────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(var(--accentA));
+  pointer-events: none;
+  z-index: 99999;
+  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease, transform 0.03s linear;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in oklab, rgb(var(--accentA)) 70%, transparent);
+  pointer-events: none;
+  z-index: 99998;
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+
+/* Hover state */
+.cursor-dot--hover {
+  width: 6px;
+  height: 6px;
+  background: rgb(var(--accentB));
+}
+
+.cursor-ring--hover {
+  width: 44px;
+  height: 44px;
+  border-color: color-mix(in oklab, rgb(var(--accentB)) 80%, transparent);
+}
+
+/* Click state */
+.cursor-dot--click {
+  transform: scale(1.5) !important;
+}
+
+.cursor-ring--click {
+  width: 24px;
+  height: 24px;
+  opacity: 0.4;
+}
+
+/* Links and buttons should show auto on mobile */
+a, button, [role="button"], input, textarea, select, label {
+  cursor: none;
+}
+
+@media (hover: none) {
+  a, button, [role="button"], input, textarea, select, label {
+    cursor: auto;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   KEYFRAME ANIMATIONS
+───────────────────────────────────────────── */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);     filter: blur(0);   }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px)   rotate(var(--rot, 0deg)); }
+  50%       { transform: translateY(-10px) rotate(var(--rot, 0deg)); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0   color-mix(in oklab, rgb(var(--accentB)) 35%, transparent); }
+  50%       { box-shadow: 0 0 0 8px color-mix(in oklab, rgb(var(--accentB)) 0%,  transparent); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes spin-slow {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+
+/* Card tilt shake — plays once on hover enter */
+@keyframes card-shake {
+  0%   { transform: perspective(900px) rotateZ(0)      rotateY(0); }
+  20%  { transform: perspective(900px) rotateZ(-1.8deg) rotateY(-3deg); }
+  40%  { transform: perspective(900px) rotateZ(1.6deg)  rotateY(3deg); }
+  60%  { transform: perspective(900px) rotateZ(-1.2deg) rotateY(-2deg); }
+  80%  { transform: perspective(900px) rotateZ(0.8deg)  rotateY(2deg); }
+  100% { transform: perspective(900px) rotateZ(0)       rotateY(0); }
+}
+
+.card-shake {
+  animation: card-shake 0.5s ease forwards;
+}
+
+/* Dot bounce (typing indicator in phone mockup) */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1;   }
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY CLASSES
+───────────────────────────────────────────── */
 @layer utilities {
-  .bg-galaxy {
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, rgb(var(--accentA)) 0%, rgb(var(--accentB)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Shimmer gradient text */
+  .shimmer-text {
+    background: linear-gradient(90deg, rgb(var(--accentA)) 0%, rgb(var(--accentB)) 40%, rgb(var(--accentA)) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Glass card */
+  .glass {
+    background: color-mix(in oklab, rgb(var(--card)) 75%, transparent);
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Glow card */
+  .glow-card {
     position: relative;
-    background: transparent;
-    isolation: isolate;
+    transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+  }
+  .glow-card:hover {
+    box-shadow: 0 0 0 1px color-mix(in oklab, rgb(var(--accentA)) 40%, transparent),
+                0 8px 40px -8px color-mix(in oklab, rgb(var(--accentA)) 30%, transparent);
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent) !important;
+  }
+
+  /* Scroll reveal */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(4px);
+    transition:
+      opacity    0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform  0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      filter     0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* Float badge */
+  .float-badge { animation: float 4s ease-in-out infinite; }
+  .float-badge:nth-child(2) { animation-delay: -1s;   }
+  .float-badge:nth-child(3) { animation-delay: -2s;   }
+  .float-badge:nth-child(4) { animation-delay: -3s;   }
+
+  /* Availability pill */
+  .avail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, rgb(var(--accentB)) 40%, transparent);
+    background: color-mix(in oklab, rgb(var(--accentB)) 8%, transparent);
+    color: rgb(var(--accentB));
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .avail-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: rgb(var(--accentB));
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Section eyebrow */
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(var(--accentA));
+    margin-bottom: 0.75rem;
+  }
+
+  /* Wavy underline link */
+  .wavy-link {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.25s ease;
+  }
+  .wavy-link:hover {
+    text-decoration-style: wavy;
+    text-decoration-color: currentColor;
+  }
+
+  /* Tag / chip */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    background: color-mix(in oklab, rgb(var(--card)) 90%, transparent);
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 80%, transparent);
+    color: rgb(var(--muted));
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .tag:hover {
+    background: color-mix(in oklab, rgb(var(--accentA)) 10%, transparent);
+    border-color: color-mix(in oklab, rgb(var(--accentA)) 40%, transparent);
+    color: rgb(var(--fg));
+  }
+
+  /* Button primary glow */
+  .btn-glow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background: linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)));
+    color: #fff;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px -4px color-mix(in oklab, rgb(var(--accentA)) 55%, transparent);
+  }
+  .btn-glow:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -6px color-mix(in oklab, rgb(var(--accentA)) 60%, transparent);
+  }
+  .btn-glow:active { transform: translateY(0); }
+
+  /* Button outline */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 90%, transparent);
+    background: color-mix(in oklab, rgb(var(--card)) 60%, transparent);
+    color: rgb(var(--fg));
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: color-mix(in oklab, rgb(var(--accentA)) 55%, transparent);
+    background: color-mix(in oklab, rgb(var(--accentA)) 8%, transparent);
+    transform: translateY(-2px);
+  }
+
+  /* Code window */
+  .code-window {
+    background: color-mix(in oklab, rgb(var(--card)) 90%, #000 10%);
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 80%, transparent);
+    border-radius: 12px;
     overflow: hidden;
   }
+  .code-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: color-mix(in oklab, rgb(var(--border)) 30%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, rgb(var(--border)) 60%, transparent);
+  }
+  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dot-red    { background: #ff5f57; }
+  .code-dot-yellow { background: #febc2e; }
+  .code-dot-green  { background: #28c840; }
+  .code-body {
+    padding: 1.25rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: rgb(var(--muted));
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .c-keyword  { color: #c678dd; }
+  .c-fn       { color: #61afef; }
+  .c-class    { color: #e5c07b; }
+  .c-string   { color: #98c379; }
+  .c-comment  { color: color-mix(in oklab, rgb(var(--muted)) 55%, transparent); font-style: italic; }
+  .c-number   { color: #d19a66; }
+  .c-cursor   {
+    display: inline-block;
+    width: 2px; height: 1em;
+    background: rgb(var(--accentA));
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
 
-  .bg-galaxy::before {
+  /* Timeline */
+  .timeline-item {
+    position: relative;
+    padding-left: 2.25rem;
+    padding-bottom: 2.5rem;
+  }
+  .timeline-item::before {
     content: "";
     position: absolute;
+    left: 9px; top: 24px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, rgb(var(--accentA)) 60%, transparent),
+      color-mix(in oklab, rgb(var(--border)) 30%, transparent) 80%,
+      transparent
+    );
+  }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-dot {
+    position: absolute;
+    left: 0; top: 4px;
+    width: 20px; height: 20px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)));
+    box-shadow: 0 0 0 4px color-mix(in oklab, rgb(var(--accentA)) 18%, transparent);
+  }
+
+  /* Orbit ring */
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed color-mix(in oklab, rgb(var(--border)) 60%, transparent);
+    animation: spin-slow linear infinite;
+    top: 50%;
+    left: 50%;
+  }
+
+  /* Star field */
+  .star-field {
+    position: absolute;
     inset: 0;
-    pointer-events: none;
     background-image:
-      radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1.6px),
-      radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1.6px),
-      radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1.6px);
-    background-size:
-      120px 120px,
-      190px 190px,
-      260px 260px;
-    background-position:
-      0 0,
-      40px 70px,
-      90px 20px;
-    opacity: 0.55;
-    mix-blend-mode: screen;
+      radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
+      radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 180px 180px, 300px 300px;
+    background-position: 0 0, 60px 80px;
+    pointer-events: none;
   }
 
-  html:not(.dark) .bg-galaxy::before {
-    display: none;
-  }
-
-  .bg-galaxy > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .bg-galaxy > header {
-    z-index: 9999;
-  }
-
+  /* BG grid */
   .bg-grid {
-    background-image: radial-gradient(
-        circle at 1px 1px,
-        color-mix(in oklab, rgb(var(--border)) 55%, transparent) 1px,
-        transparent 0
-      ),
-      radial-gradient(
-        circle at 1px 1px,
-        color-mix(in oklab, rgb(var(--border)) 35%, transparent) 1px,
-        transparent 0
-      );
-    background-size:
-      24px 24px,
-      72px 72px;
-    background-position:
-      0 0,
-      0 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, rgb(var(--border)) 55%, transparent) 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, rgb(var(--border)) 30%, transparent) 1px, transparent 0);
+    background-size: 24px 24px, 72px 72px;
   }
 
-  .text-gradient {
-    color: rgb(var(--accentA));
+  /* Hero orb */
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
   }
 
-  .glass {
-    background: color-mix(in oklab, rgb(var(--card)) 72%, transparent);
+  /* Project image wrap */
+  .project-img-wrap {
+    overflow: hidden;
+    border-radius: 14px;
     border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+  }
+  .project-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .project-img-wrap:hover img { transform: scale(1.04); }
+
+  /* Skill card */
+  .skill-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
+    background: color-mix(in oklab, rgb(var(--card)) 70%, transparent);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .skill-card:hover {
+    border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent);
+    background: color-mix(in oklab, rgb(var(--accentA)) 5%, rgb(var(--card)));
+    box-shadow: 0 4px 24px -6px color-mix(in oklab, rgb(var(--accentA)) 25%, transparent);
+  }
+
+  /* Stat card */
+  .stat-card {
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
+    background: color-mix(in oklab, rgb(var(--card)) 70%, transparent);
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card:hover {
+    border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent);
+    transform: translateY(-4px);
   }
 }

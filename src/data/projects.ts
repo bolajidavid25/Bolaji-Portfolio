@@ -115,6 +115,29 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "await-apartment",
+    title: "Await Apartment",
+    summary:
+      "Premium real estate landing page designed to present apartment listings through a fast, responsive, and visually engaging experience.",
+    problem:
+      "Real estate brands need a polished digital presence that makes properties easy to discover while keeping the browsing experience quick and accessible.",
+    solution:
+      "Built a responsive React landing page with Tailwind CSS and Framer Motion to create a refined property-focused experience with smooth interactions.",
+    features: [
+      "Responsive real estate landing page",
+      "Property-focused visual presentation",
+      "Smooth Framer Motion interactions",
+      "Fast, mobile-friendly browsing experience",
+    ],
+    preview: "Premium apartment landing page with responsive layouts and animated interactions.",
+    category: "React",
+    tech: ["React", "Tailwind CSS", "Framer Motion"],
+    links: {
+      github: "https://github.com/bolajidavid25/Await-Apartment-",
+    },
+    featured: true,
+  },
+  {
     slug: "dons-farm-management",
     title: "Dons Farm",
     summary:

@@ -2,112 +2,171 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Container } from "@/components/ui/container";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { MobileNav } from "@/components/mobile-nav";
+import { profile } from "@/data/profile";
 
 const nav = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#home",       label: "Home"     },
+  { href: "/#about",      label: "About"    },
+  { href: "/#projects",   label: "Projects" },
+  { href: "/#services",   label: "Services" },
+  { href: "/#contact",    label: "Contact"  },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const router = useRouter();
-  const [showSearch, setShowSearch] = React.useState(false);
-  const [query, setQuery] = React.useState("");
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState("home");
 
   React.useEffect(() => {
-    if (showSearch) {
-      inputRef.current?.focus();
-    }
-  }, [showSearch]);
+    const handler = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
-  function onSearchSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const q = query.trim();
-    router.push(q ? `/projects?search=${encodeURIComponent(q)}` : "/projects");
-  }
+  // Track active section via IntersectionObserver
+  React.useEffect(() => {
+    const sections = ["home", "about", "projects", "services", "contact"];
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { threshold: 0.3, rootMargin: "-60px 0px -40% 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [pathname]);
+
+  React.useEffect(() => { setMenuOpen(false); }, [pathname]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If already on homepage, smooth scroll to anchor
+    if (pathname === "/" && href.startsWith("/#")) {
+      e.preventDefault();
+      const id = href.slice(2);
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-[9999] border-b border-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] bg-[rgb(var(--bg))]">
-      <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight">
-          <span className="text-gradient">Bolaji</span>{" "}
-          <span className="text-[color-mix(in_oklab,rgb(var(--muted))_70%,rgb(var(--fg)))]">
-            David
-          </span>
-        </Link>
+    <>
+      <header
+        className={cn(
+          "sticky top-0 z-[9999] w-full transition-all duration-300",
+          scrolled
+            ? "bg-[rgba(7,9,15,0.88)] backdrop-blur-xl border-b border-[color-mix(in_oklab,rgb(var(--border))_70%,transparent)] shadow-[0_2px_30px_-10px_rgba(139,92,246,0.12)]"
+            : "bg-transparent border-b border-transparent"
+        )}
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="group flex items-center gap-0.5 font-mono text-base font-semibold tracking-tight"
+            aria-label="Home"
+          >
+            <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_70%,rgb(var(--muted)))] group-hover:text-[rgb(var(--accentA))] transition-colors duration-200">[</span>
+            <span className="gradient-text">Bolaji</span>
+            <span className="text-[rgb(var(--accentB))]">.dev</span>
+            <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_70%,rgb(var(--muted)))] group-hover:text-[rgb(var(--accentA))] transition-colors duration-200">]</span>
+          </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-0.5 md:flex" aria-label="Main navigation">
+            {nav.map((item) => {
+              const sectionId = item.href.slice(2);
+              const active = pathname === "/" ? activeSection === sectionId : false;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className={cn(
+                    "relative rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200",
+                    active
+                      ? "text-[rgb(var(--fg))]"
+                      : "text-[rgb(var(--muted))] hover:text-[rgb(var(--fg))]"
+                  )}
+                >
+                  {active && (
+                    <span
+                      className="absolute inset-0 rounded-full bg-[color-mix(in_oklab,rgb(var(--accentA))_12%,transparent)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--accentA))_30%,transparent)]"
+                      aria-hidden
+                    />
+                  )}
+                  <span className="relative">{item.label}</span>
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right: Hire Me CTA + Hamburger */}
+          <div className="flex items-center gap-3">
+            <a
+              href="/#contact"
+              onClick={(e) => handleNavClick(e, "/#contact")}
+              className="hidden btn-glow text-sm md:inline-flex"
+            >
+              Hire Me
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+              </svg>
+            </a>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              className="relative flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-xl md:hidden border border-[color-mix(in_oklab,rgb(var(--border))_80%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_60%,transparent)] transition hover:border-[color-mix(in_oklab,rgb(var(--accentA))_50%,transparent)]"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              <span className={cn("block h-[2px] w-4 rounded-full bg-[rgb(var(--fg))] transition-all duration-300 origin-center", menuOpen && "rotate-45 translate-y-[7px]")} />
+              <span className={cn("block h-[2px] w-4 rounded-full bg-[rgb(var(--fg))] transition-all duration-200", menuOpen && "opacity-0 scale-x-0")} />
+              <span className={cn("block h-[2px] w-4 rounded-full bg-[rgb(var(--fg))] transition-all duration-300 origin-center", menuOpen && "-rotate-45 -translate-y-[7px]")} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile slide-down menu */}
+      <div className={cn("fixed inset-x-0 top-16 z-[9998] md:hidden transition-all duration-300 overflow-hidden", menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0")}>
+        <nav className="flex flex-col gap-1 p-5 border-b border-[color-mix(in_oklab,rgb(var(--border))_70%,transparent)] bg-[rgba(7,9,15,0.97)] backdrop-blur-xl" aria-label="Mobile navigation">
           {nav.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname?.startsWith(item.href);
+            const sectionId = item.href.slice(2);
+            const active = pathname === "/" ? activeSection === sectionId : false;
             return (
-              <Link
+              <a
                 key={item.href}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm transition hover:bg-[color-mix(in_oklab,rgb(var(--card))_75%,transparent)]",
-                  active &&
-                    "bg-blue-600 text-white shadow-md",
+                  "rounded-xl px-4 py-3 text-sm font-medium transition-all",
+                  active
+                    ? "gradient-text bg-[color-mix(in_oklab,rgb(var(--accentA))_8%,transparent)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--accentA))_25%,transparent)]"
+                    : "text-[rgb(var(--muted))] hover:text-[rgb(var(--fg))] hover:bg-[color-mix(in_oklab,rgb(var(--card))_60%,transparent)]"
                 )}
               >
                 {item.label}
-              </Link>
+              </a>
             );
           })}
+          <a href="/#contact" onClick={(e) => handleNavClick(e, "/#contact")} className="btn-glow mt-3 justify-center text-sm">
+            Hire Me ↗
+          </a>
+          <p className="mt-3 text-center text-xs text-[rgb(var(--muted))]">{profile.links.email}</p>
         </nav>
-
-        <div className="flex items-center gap-2">
-          <form
-            onSubmit={onSearchSubmit}
-            className={cn(
-              "hidden sm:flex h-10 items-center overflow-hidden rounded-full ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_85%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_85%,transparent)] transition-all duration-300 ease-out",
-              showSearch ? "w-64 px-2" : "w-10 px-0",
-            )}
-          >
-            <button
-              type="button"
-              onClick={() => setShowSearch(true)}
-              className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-full"
-              aria-label="Open search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onBlur={() => {
-                if (!query.trim()) setShowSearch(false);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Escape") {
-                  setShowSearch(false);
-                }
-              }}
-              placeholder="Search projects..."
-              className={cn(
-                "bg-transparent text-sm outline-none transition-all duration-200",
-                showSearch ? "w-full opacity-100" : "w-0 opacity-0",
-              )}
-            />
-          </form>
-          <ThemeToggle />
-          <MobileNav />
-        </div>
-      </Container>
-    </header>
+      </div>
+    </>
   );
 }
-

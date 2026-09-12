@@ -1,38 +1,48 @@
 "use client";
 
-import * as React from "react";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+
+interface MotionInViewProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;   // ms
+  once?: boolean;
+}
 
 export function MotionInView({
   children,
-  className,
+  className = "",
   delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const [mounted, setMounted] = React.useState(false);
+  once = true,
+}: MotionInViewProps) {
+  const ref = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  if (!mounted) {
-    return <div className={cn(className)}>{children}</div>;
-  }
+    // Apply delay via inline style
+    el.style.transitionDelay = `${delay}ms`;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          if (once) observer.unobserve(el);
+        } else if (!once) {
+          el.classList.remove("is-visible");
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay, once]);
 
   return (
-    <motion.div
-      className={cn(className)}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut", delay }}
-    >
+    <div ref={ref} className={`reveal-up ${className}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }
-

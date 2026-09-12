@@ -1,0 +1,629 @@
+"use client";
+
+import { useState } from "react";
+
+/* ─── Floating tech badge ─────────────────────────────────── */
+function TechBadge({
+  label,
+  icon,
+  style,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span
+      className="float-badge absolute z-20 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md border"
+      style={{
+        background: "color-mix(in oklab, rgb(var(--card)) 85%, transparent)",
+        borderColor: "color-mix(in oklab, rgb(var(--accentA)) 40%, transparent)",
+        color: "rgb(var(--fg))",
+        boxShadow:
+          "0 4px 16px -4px color-mix(in oklab, rgb(var(--accentA)) 30%, transparent)",
+        ...style,
+      }}
+      aria-hidden="true"
+    >
+      {icon}
+      <span>{label}</span>
+    </span>
+  );
+}
+
+/* ─── Phone mock (Flutter AI Chat) ──────────────────────────── */
+function PhoneMockup() {
+  return (
+    <div
+      className="phone-frame mx-auto"
+      style={{
+        width: 260,
+        height: 520,
+        background: "linear-gradient(160deg, #12122a 0%, #0d0d1f 100%)",
+        borderRadius: 40,
+        border: "7px solid #252545",
+        position: "relative",
+        boxShadow:
+          "0 0 0 1.5px #3b3b66, 0 40px 80px -20px rgba(139,92,246,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
+        overflow: "hidden",
+      }}
+    >
+      {/* Speaker bar */}
+      <div
+        style={{
+          position: "absolute",
+          top: 14,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 70,
+          height: 5,
+          background: "#2a2a4a",
+          borderRadius: 3,
+          zIndex: 10,
+        }}
+      />
+      {/* Front camera */}
+      <div
+        style={{
+          position: "absolute",
+          top: 16,
+          right: 24,
+          width: 7,
+          height: 7,
+          background: "#2a2a4a",
+          borderRadius: "50%",
+          zIndex: 10,
+        }}
+      />
+
+      {/* Screen */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          flexDirection: "column",
+          paddingTop: 36,
+        }}
+      >
+        {/* Status bar */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "4px 18px",
+            fontSize: 9,
+            color: "rgba(255,255,255,0.5)",
+          }}
+        >
+          <span>9:41</span>
+          <span>●●● ■</span>
+        </div>
+
+        {/* App header */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "8px 16px",
+          }}
+        >
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+              flexShrink: 0,
+            }}
+          />
+          <div>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                fontWeight: 700,
+                color: "#fff",
+              }}
+            >
+              Dynamics AI
+            </p>
+            <p style={{ margin: 0, fontSize: 8, color: "rgba(139,92,246,0.9)" }}>
+              ● Online
+            </p>
+          </div>
+          <div style={{ marginLeft: "auto", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>
+            ⋮
+          </div>
+        </div>
+
+        {/* Chat messages */}
+        <div
+          style={{
+            flex: 1,
+            padding: "6px 12px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            overflowY: "hidden",
+          }}
+        >
+          {/* AI bubble */}
+          <div style={{ alignSelf: "flex-start", maxWidth: "80%" }}>
+            <div
+              style={{
+                background: "linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15))",
+                border: "1px solid rgba(139,92,246,0.3)",
+                borderRadius: "4px 14px 14px 14px",
+                padding: "7px 10px",
+                fontSize: 9.5,
+                color: "rgba(255,255,255,0.9)",
+                lineHeight: 1.4,
+              }}
+            >
+              Hello! I'm Dynamics AI 🤖<br />How can I help you today?
+            </div>
+          </div>
+
+          {/* User bubble */}
+          <div style={{ alignSelf: "flex-end", maxWidth: "75%" }}>
+            <div
+              style={{
+                background: "linear-gradient(135deg, #8b5cf6, #6d28d9)",
+                borderRadius: "14px 4px 14px 14px",
+                padding: "7px 10px",
+                fontSize: 9.5,
+                color: "#fff",
+                lineHeight: 1.4,
+              }}
+            >
+              Create a task list for today
+            </div>
+          </div>
+
+          {/* AI response */}
+          <div style={{ alignSelf: "flex-start", maxWidth: "85%" }}>
+            <div
+              style={{
+                background: "linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15))",
+                border: "1px solid rgba(139,92,246,0.3)",
+                borderRadius: "4px 14px 14px 14px",
+                padding: "7px 10px",
+                fontSize: 9.5,
+                color: "rgba(255,255,255,0.9)",
+                lineHeight: 1.5,
+              }}
+            >
+              Sure! Here's your list:<br />
+              ✓ Review pull requests<br />
+              ✓ Update Connevo UI<br />
+              ✓ Write API docs
+            </div>
+          </div>
+
+          {/* Typing indicator */}
+          <div style={{ alignSelf: "flex-start" }}>
+            <div
+              style={{
+                background: "rgba(139,92,246,0.15)",
+                border: "1px solid rgba(139,92,246,0.25)",
+                borderRadius: "4px 10px 10px 10px",
+                padding: "7px 12px",
+                display: "flex",
+                gap: 4,
+                alignItems: "center",
+              }}
+            >
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: "#8b5cf6",
+                    animation: `bounce-dot 1.2s ${i * 0.2}s ease-in-out infinite`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Input bar */}
+        <div
+          style={{
+            margin: "6px 12px 14px",
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(139,92,246,0.3)",
+            borderRadius: 20,
+            display: "flex",
+            alignItems: "center",
+            padding: "6px 8px 6px 14px",
+            gap: 6,
+          }}
+        >
+          <span style={{ flex: 1, fontSize: 9, color: "rgba(255,255,255,0.3)" }}>
+            Ask anything…
+          </span>
+          <div
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 10,
+              color: "#fff",
+            }}
+          >
+            ▶
+          </div>
+        </div>
+
+        {/* Home bar */}
+        <div
+          style={{
+            width: 80,
+            height: 4,
+            background: "rgba(255,255,255,0.2)",
+            borderRadius: 2,
+            margin: "0 auto 10px",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ─── Laptop mock (Next.js Dashboard) ──────────────────────── */
+function LaptopMockup() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {/* Screen lid */}
+      <div
+        style={{
+          width: 440,
+          height: 280,
+          background: "linear-gradient(160deg, #12122a 0%, #0d0d1f 100%)",
+          borderRadius: "12px 12px 0 0",
+          border: "6px solid #252545",
+          borderBottom: "none",
+          overflow: "hidden",
+          boxShadow:
+            "0 -4px 40px -10px rgba(139,92,246,0.35), 0 0 0 1px #3b3b66, inset 0 1px 0 rgba(255,255,255,0.06)",
+          position: "relative",
+        }}
+      >
+        {/* Browser chrome */}
+        <div
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            padding: "6px 10px",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          {/* Dots */}
+          {["#ff5f57", "#febc2e", "#28c840"].map((c, i) => (
+            <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: c }} />
+          ))}
+          {/* URL bar */}
+          <div
+            style={{
+              flex: 1,
+              margin: "0 8px",
+              background: "rgba(255,255,255,0.05)",
+              borderRadius: 5,
+              padding: "2px 8px",
+              fontSize: 8,
+              color: "rgba(255,255,255,0.35)",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            🔒 bolajidavid.dev
+          </div>
+        </div>
+
+        {/* Web app content */}
+        <div style={{ display: "flex", height: "calc(100% - 30px)" }}>
+          {/* Sidebar */}
+          <div
+            style={{
+              width: 70,
+              background: "rgba(139,92,246,0.06)",
+              borderRight: "1px solid rgba(139,92,246,0.12)",
+              padding: "12px 8px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+            }}
+          >
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#8b5cf6,#06b6d4)", margin: "0 auto 8px" }} />
+            {["⊞", "📁", "📊", "⚙️"].map((icon, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "6px",
+                  borderRadius: 8,
+                  textAlign: "center",
+                  fontSize: 11,
+                  background: i === 0 ? "rgba(139,92,246,0.18)" : "transparent",
+                  border: i === 0 ? "1px solid rgba(139,92,246,0.3)" : "1px solid transparent",
+                }}
+              >
+                {icon}
+              </div>
+            ))}
+          </div>
+
+          {/* Main area */}
+          <div style={{ flex: 1, padding: "12px 14px", overflow: "hidden" }}>
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Dashboard</div>
+                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.35)" }}>
+                  Welcome back, Bolaji
+                </div>
+              </div>
+              <div
+                style={{
+                  background: "linear-gradient(135deg,#8b5cf6,#06b6d4)",
+                  borderRadius: 6,
+                  padding: "4px 8px",
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: 600,
+                }}
+              >
+                + New Project
+              </div>
+            </div>
+
+            {/* Stats cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginBottom: 10 }}>
+              {[
+                { label: "Projects", value: "12", delta: "+3" },
+                { label: "Clients", value: "8", delta: "+1" },
+                { label: "Revenue", value: "$4.2k", delta: "+12%" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(139,92,246,0.15)",
+                    borderRadius: 8,
+                    padding: "6px 8px",
+                  }}
+                >
+                  <div style={{ fontSize: 7, color: "rgba(255,255,255,0.4)", marginBottom: 2 }}>
+                    {s.label}
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>{s.value}</div>
+                  <div style={{ fontSize: 7, color: "#34d399" }}>{s.delta}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Chart */}
+            <div
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(139,92,246,0.12)",
+                borderRadius: 8,
+                padding: "8px",
+                height: 90,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>
+                Activity (last 7 days)
+              </div>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "flex-end",
+                  gap: 4,
+                  padding: "0 4px",
+                }}
+              >
+                {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      flex: 1,
+                      height: `${h}%`,
+                      borderRadius: "3px 3px 0 0",
+                      background:
+                        i === 5
+                          ? "linear-gradient(to top, #8b5cf6, #06b6d4)"
+                          : "rgba(139,92,246,0.25)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Hinge */}
+      <div
+        style={{
+          width: 460,
+          height: 6,
+          background: "#1e1e38",
+          borderLeft: "6px solid #252545",
+          borderRight: "6px solid #252545",
+        }}
+      />
+
+      {/* Base */}
+      <div
+        style={{
+          width: 480,
+          height: 12,
+          background: "#1a1a30",
+          borderRadius: "0 0 6px 6px",
+          border: "4px solid #252545",
+          borderTop: "none",
+          boxShadow: "0 8px 24px -6px rgba(0,0,0,0.6)",
+        }}
+      />
+
+      {/* Trackpad hint */}
+      <div
+        style={{
+          width: 80,
+          height: 6,
+          background: "#252545",
+          borderRadius: 3,
+          marginTop: 6,
+        }}
+      />
+    </div>
+  );
+}
+
+/* ─── Main DeviceSlider ─────────────────────────────────────── */
+const DEVICES = [
+  { key: "phone", label: "Flutter App", emoji: "📱" },
+  { key: "laptop", label: "Web App", emoji: "💻" },
+] as const;
+
+const PHONE_BADGES = [
+  { label: "Flutter", emoji: "🐦", style: { top: "5%", left: "-10%" } },
+  { label: "Firebase", emoji: "🔥", style: { top: "35%", right: "-15%" } },
+  { label: "Dart", emoji: "🎯", style: { bottom: "20%", left: "-15%" } },
+  { label: "Riverpod", emoji: "⚡", style: { bottom: "8%", right: "-10%" } },
+];
+
+const LAPTOP_BADGES = [
+  { label: "Next.js", emoji: "▲", style: { top: "5%", left: "-2%" } },
+  { label: "React", emoji: "⚛️", style: { top: "35%", right: "-8%" } },
+  { label: "TypeScript", emoji: "🔷", style: { bottom: "20%", left: "-6%" } },
+  { label: "Tailwind", emoji: "🎨", style: { bottom: "8%", right: "-4%" } },
+];
+
+export function DeviceSlider() {
+  const [active, setActive] = useState<"phone" | "laptop">("phone");
+  const badges = active === "phone" ? PHONE_BADGES : LAPTOP_BADGES;
+
+  return (
+    <div className="relative flex flex-col items-center">
+      {/* Toggle tabs */}
+      <div
+        className="mb-8 flex gap-1 rounded-full p-1"
+        style={{
+          background: "color-mix(in oklab, rgb(var(--card)) 80%, transparent)",
+          border: "1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent)",
+        }}
+      >
+        {DEVICES.map((d) => (
+          <button
+            key={d.key}
+            onClick={() => setActive(d.key)}
+            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300"
+            style={
+              active === d.key
+                ? {
+                    background:
+                      "linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)))",
+                    color: "#fff",
+                    boxShadow:
+                      "0 2px 12px -2px color-mix(in oklab, rgb(var(--accentA)) 50%, transparent)",
+                  }
+                : { color: "rgb(var(--muted))" }
+            }
+          >
+            <span>{d.emoji}</span>
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Device + orbit rings container */}
+      <div
+        className="relative"
+        style={{ width: active === "phone" ? 340 : 520, height: active === "phone" ? 580 : 400 }}
+      >
+        {/* Orbit rings (phone only) */}
+        {active === "phone" && (
+          <>
+            {[360, 440, 520].map((size, i) => (
+              <div
+                key={i}
+                className="orbit-ring"
+                style={{
+                  width: size,
+                  height: size,
+                  top: "50%",
+                  left: "50%",
+                  marginTop: -size / 2,
+                  marginLeft: -size / 2,
+                  animationDuration: `${20 + i * 10}s`,
+                  animationDirection: i % 2 === 0 ? "normal" : "reverse",
+                }}
+                aria-hidden="true"
+              />
+            ))}
+          </>
+        )}
+
+        {/* Floating tech badges */}
+        {badges.map((b) => (
+          <TechBadge key={b.label} label={b.label} icon={b.emoji} style={b.style} />
+        ))}
+
+        {/* Device mockup with fade transition */}
+        <div
+          key={active}
+          style={{
+            animation: "fade-in 0.4s ease forwards",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          {active === "phone" ? <PhoneMockup /> : <LaptopMockup />}
+        </div>
+
+        {/* Glow beneath device */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: -20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "60%",
+            height: 40,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(ellipse, color-mix(in oklab, rgb(var(--accentA)) 30%, transparent), transparent 70%)",
+            filter: "blur(20px)",
+            pointerEvents: "none",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+    </div>
+  );
+}
