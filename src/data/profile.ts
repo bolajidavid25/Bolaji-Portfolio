@@ -10,6 +10,22 @@ export const profile = {
   availability: "Open to opportunities",
   yearsExperience: "3+",
   resumeUrl: "/resume",
+  workExperience: [
+    {
+      company: "The AI Colony",
+      role: "Web Developer Intern",
+      period: "August 2026 - Present",
+      description: "Building web solutions for AI and SaaS companies through growth marketing and brand consulting. Contributing to The AI Colony Academy's educational platform and Everything Tech & AI Newsletter while supporting industry research and community initiatives.",
+      website: "https://www.theaicolony.com/"
+    },
+    {
+      company: "Impact Hub",
+      role: "Web & Mobile Developer",
+      period: "September 2026 - Present",
+      description: "Developing digital solutions for the world's largest network of coworking spaces and innovation accelerators. Supporting entrepreneurial communities across 120+ cities with tools that foster positive social, environmental, and economic change.",
+      website: "https://lagos.impacthub.net/"
+    }
+  ],
   links: {
     email: "bolajidavid05@gmail.com",
     github: "https://github.com/bolajidavid25",

@@ -211,10 +211,8 @@ function FeaturedProjectCard({
    TESTIMONIAL SLIDER
 ───────────────────────────────────────────── */
 const testimonials = [
-  { text: "Reliable delivery, strong communication, and clean engineering execution from planning through launch.", author: "Startup Founder", role: "Tech Startup" },
-  { text: "Great balance between product thinking and technical depth across mobile and web experiences.", author: "Product Collaborator", role: "SaaS Product" },
-  { text: "Delivered high-quality cross-platform apps with excellent performance and user experience.", author: "Tech Lead", role: "Engineering Team" },
-  { text: "Professional, responsive, and always delivers on time with scalable, maintainable solutions.", author: "Project Manager", role: "Agency" },
+  { text: "Working together with David on Donsfarm, he was absolutely amazing and very resourceful. His inputs and ideas are among the leading factors that led to the development and deployment of Donsfarm.", author: "Sulaimon Quadri Dolapo", role: " CEO DonsFarm" },
+  { text: "I have known David for years now, and he has always helped with my projects while I was still in school. I am so proud and confident to put him in charge of my Gym web app. He is such a focused and tenacious fellow.", author: "Umar Faruk Babatunde ", role: "CEO Babs Cruz  Gym" },
 ];
 
 function TestimonialSlider() {
@@ -581,30 +579,7 @@ export default function Home() {
               </MotionInView>
 
               <div className="mt-8">
-                {[
-                  {
-                    role: "Freelance Mobile & Web Developer",
-                    company: "Independent",
-                    period: "2022 – Present",
-                    bullets: [
-                      "Built production Flutter, React Native, and Next.js apps for clients across Nigeria and beyond",
-                      "Integrated Firebase auth, Firestore, Storage, and third-party payment APIs",
-                      "Delivered 5+ projects from design through deployment with strong client satisfaction",
-                    ],
-                    tags: ["Flutter", "React Native", "Next.js", "Firebase"],
-                  },
-                  {
-                    role: "Personal Product Engineering",
-                    company: "Self-directed Projects",
-                    period: "2020 – Present",
-                    bullets: [
-                      "Shipped Dynamics AI — an AI-powered Flutter voice assistant app",
-                      "Built Connevo — real-time chat & video calling platform with ZegoCloud",
-                      "Developed multiple case-study projects focused on scalable architecture",
-                    ],
-                    tags: ["Dart", "ZegoCloud", "Riverpod", "Firestore"],
-                  },
-                ].map((exp, i) => (
+                {profile.workExperience.map((exp, i) => (
                   <MotionInView key={i} delay={i * 100}>
                     <article className="timeline-item">
                       <div className="timeline-dot" />
@@ -616,17 +591,15 @@ export default function Home() {
                           </div>
                           <time className="text-xs text-[rgb(var(--muted))] whitespace-nowrap shrink-0">{exp.period}</time>
                         </div>
-                        <ul className="mt-3 space-y-1.5">
-                          {exp.bullets.map((b) => (
-                            <li key={b} className="flex items-start gap-2 text-xs leading-relaxed text-[rgb(var(--muted))]">
-                              <span className="mt-0.5 shrink-0 h-3.5 w-3.5 rounded-full flex items-center justify-center text-[9px]" style={{ background: "color-mix(in oklab, rgb(var(--accentA)) 15%, transparent)", color: "rgb(var(--accentA))" }}>✓</span>
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="mt-3 flex flex-wrap gap-1.5">
-                          {exp.tags.map((t) => <span key={t} className="tag text-[10px]">{t}</span>)}
-                        </div>
+                        <p className="mt-3 text-xs leading-relaxed text-[rgb(var(--muted))]">{exp.description}</p>
+                        {exp.website && (
+                          <a href={exp.website} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-xs text-[rgb(var(--accentA))] hover:underline">
+                            Visit Website
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                            </svg>
+                          </a>
+                        )}
                       </div>
                     </article>
                   </MotionInView>
