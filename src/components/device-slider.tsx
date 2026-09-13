@@ -138,96 +138,70 @@ function PhoneMockup() {
           </div>
         </div>
 
-        {/* Chat messages */}
+        {/* Code snippet display */}
         <div
           style={{
             flex: 1,
-            padding: "6px 12px",
+            padding: "8px 10px",
             display: "flex",
             flexDirection: "column",
-            gap: 8,
+            gap: 6,
             overflowY: "hidden",
           }}
         >
-          {/* AI bubble */}
-          <div style={{ alignSelf: "flex-start", maxWidth: "80%" }}>
-            <div
-              style={{
-                background: "linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15))",
-                border: "1px solid rgba(139,92,246,0.3)",
-                borderRadius: "4px 14px 14px 14px",
-                padding: "7px 10px",
-                fontSize: 9.5,
-                color: "rgba(255,255,255,0.9)",
-                lineHeight: 1.4,
-              }}
-            >
-              Hello! I'm Dynamics AI 🤖<br />How can I help you today?
-            </div>
+          {/* Code block */}
+          <div
+            style={{
+              background: "rgba(0,0,0,0.4)",
+              border: "1px solid rgba(139,92,246,0.3)",
+              borderRadius: 8,
+              padding: "8px 10px",
+              fontSize: 7,
+              color: "rgba(255,255,255,0.85)",
+              fontFamily: "monospace",
+              lineHeight: 1.4,
+              overflow: "hidden",
+            }}
+          >
+            <div style={{ color: "#8b5cf6", marginBottom: 4 }}>{"class VoiceWidget extends StatefulWidget"}</div>
+            <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)" }}>{"  _VoiceWidgetState createState() =>"}</div>
+            <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)" }}>{"    _VoiceWidgetState();"}</div>
+            <div style={{ marginTop: 4, color: "#06b6d4" }}>{"  Widget build(BuildContext context) {"}</div>
+            <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)" }}>{"    return Scaffold("}</div>
+            <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)" }}>{"      appBar: AppBar(title: Text('AI Voice')),"}</div>
+            <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)" }}>{"      body: StreamBuilder<String>("}</div>
+            <div style={{ paddingLeft: 16, color: "rgba(255,255,255,0.7)" }}>{"        stream: voiceService.listen(),"}</div>
+            <div style={{ paddingLeft: 16, color: "rgba(255,255,255,0.7)" }}>{"        builder: (context, snapshot) =>"}</div>
+            <div style={{ paddingLeft: 20, color: "#34d399" }}>{"          Text(snapshot.data ?? ''),"} </div>
+            <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)" }}>{"      ),"}</div>
+            <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)" }}>{"    );"}</div>
+            <div style={{ color: "#06b6d4" }}>{"  }"}</div>
           </div>
 
-          {/* User bubble */}
-          <div style={{ alignSelf: "flex-end", maxWidth: "75%" }}>
+          {/* Status indicator */}
+          <div
+            style={{
+              background: "rgba(139,92,246,0.15)",
+              border: "1px solid rgba(139,92,246,0.25)",
+              borderRadius: 6,
+              padding: "6px 10px",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
             <div
               style={{
-                background: "linear-gradient(135deg, #8b5cf6, #6d28d9)",
-                borderRadius: "14px 4px 14px 14px",
-                padding: "7px 10px",
-                fontSize: 9.5,
-                color: "#fff",
-                lineHeight: 1.4,
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "#34d399",
+                animation: "pulse 2s ease-in-out infinite",
               }}
-            >
-              Create a task list for today
-            </div>
-          </div>
-
-          {/* AI response */}
-          <div style={{ alignSelf: "flex-start", maxWidth: "85%" }}>
-            <div
-              style={{
-                background: "linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15))",
-                border: "1px solid rgba(139,92,246,0.3)",
-                borderRadius: "4px 14px 14px 14px",
-                padding: "7px 10px",
-                fontSize: 9.5,
-                color: "rgba(255,255,255,0.9)",
-                lineHeight: 1.5,
-              }}
-            >
-              Sure! Here's your list:<br />
-              ✓ Review pull requests<br />
-              ✓ Update Connevo UI<br />
-              ✓ Write API docs
-            </div>
-          </div>
-
-          {/* Typing indicator */}
-          <div style={{ alignSelf: "flex-start" }}>
-            <div
-              style={{
-                background: "rgba(139,92,246,0.15)",
-                border: "1px solid rgba(139,92,246,0.25)",
-                borderRadius: "4px 10px 10px 10px",
-                padding: "7px 12px",
-                display: "flex",
-                gap: 4,
-                alignItems: "center",
-              }}
-            >
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
-                    background: "#8b5cf6",
-                    animation: `bounce-dot 1.2s ${i * 0.2}s ease-in-out infinite`,
-                  }}
-                />
-              ))}
-            </div>
+            />
+            <span style={{ fontSize: 8, color: "rgba(255,255,255,0.8)" }}>
+              Voice recognition active
+            </span>
           </div>
         </div>
 
@@ -366,99 +340,44 @@ function LaptopMockup() {
 
           {/* Main area */}
           <div style={{ flex: 1, padding: "12px 14px", overflow: "hidden" }}>
-            {/* Header */}
+            {/* Code editor */}
             <div
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 10,
-              }}
-            >
-              <div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Dashboard</div>
-                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.35)" }}>
-                  Welcome back, Bolaji
-                </div>
-              </div>
-              <div
-                style={{
-                  background: "linear-gradient(135deg,#8b5cf6,#06b6d4)",
-                  borderRadius: 6,
-                  padding: "4px 8px",
-                  fontSize: 8,
-                  color: "#fff",
-                  fontWeight: 600,
-                }}
-              >
-                + New Project
-              </div>
-            </div>
-
-            {/* Stats cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginBottom: 10 }}>
-              {[
-                { label: "Projects", value: "12", delta: "+3" },
-                { label: "Clients", value: "8", delta: "+1" },
-                { label: "Revenue", value: "$4.2k", delta: "+12%" },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(139,92,246,0.15)",
-                    borderRadius: 8,
-                    padding: "6px 8px",
-                  }}
-                >
-                  <div style={{ fontSize: 7, color: "rgba(255,255,255,0.4)", marginBottom: 2 }}>
-                    {s.label}
-                  </div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>{s.value}</div>
-                  <div style={{ fontSize: 7, color: "#34d399" }}>{s.delta}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Chart */}
-            <div
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(139,92,246,0.12)",
+                background: "rgba(0,0,0,0.5)",
+                border: "1px solid rgba(139,92,246,0.2)",
                 borderRadius: 8,
-                padding: "8px",
-                height: 90,
-                display: "flex",
-                flexDirection: "column",
+                padding: "10px 12px",
+                fontSize: 8,
+                color: "rgba(255,255,255,0.85)",
+                fontFamily: "monospace",
+                lineHeight: 1.5,
+                height: "100%",
+                overflow: "hidden",
               }}
             >
-              <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>
-                Activity (last 7 days)
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "flex-end",
-                  gap: 4,
-                  padding: "0 4px",
-                }}
-              >
-                {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      flex: 1,
-                      height: `${h}%`,
-                      borderRadius: "3px 3px 0 0",
-                      background:
-                        i === 5
-                          ? "linear-gradient(to top, #8b5cf6, #06b6d4)"
-                          : "rgba(139,92,246,0.25)",
-                    }}
-                  />
-                ))}
-              </div>
+              <div style={{ color: "#8b5cf6", marginBottom: 6 }}>{"import React, { useState } from 'react';"}</div>
+              <div style={{ color: "#8b5cf6", marginBottom: 6 }}>{"import { motion } from 'framer-motion';"}</div>
+              <div style={{ marginBottom: 6 }}>{" "}</div>
+              <div style={{ color: "#06b6d4", marginBottom: 6 }}>{"export default function Portfolio() {"}</div>
+              <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"  const [projects, setProjects] = useState([]);"}</div>
+              <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)", marginBottom: 6 }}>{"  const [isLoading, setIsLoading] = useState(true);"}</div>
+              <div style={{ marginBottom: 6 }}>{" "}</div>
+              <div style={{ paddingLeft: 8, color: "#8b5cf6", marginBottom: 4 }}>{"  useEffect(() => {"}</div>
+              <div style={{ paddingLeft: 16, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"    fetchProjects().then(data => {"}</div>
+              <div style={{ paddingLeft: 20, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"      setProjects(data);"}</div>
+              <div style={{ paddingLeft: 20, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"      setIsLoading(false);"}</div>
+              <div style={{ paddingLeft: 16, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"    });"}</div>
+              <div style={{ paddingLeft: 8, color: "#06b6d4", marginBottom: 6 }}>{"  }, []);"}</div>
+              <div style={{ marginBottom: 6 }}>{" "}</div>
+              <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"  return ("}</div>
+              <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"    <motion.div"}</div>
+              <div style={{ paddingLeft: 16, color: "#34d399", marginBottom: 4 }}>{"      initial={{ opacity: 0 }}"}</div>
+              <div style={{ paddingLeft: 16, color: "#34d399", marginBottom: 4 }}>{"      animate={{ opacity: 1 }}"}</div>
+              <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{">"}</div>
+              <div style={{ paddingLeft: 16, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"      <ProjectGrid projects={projects} />"}</div>
+              <div style={{ paddingLeft: 12, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"    </motion.div>"}</div>
+              <div style={{ paddingLeft: 8, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{"  );"}</div>
+              <div style={{ color: "#06b6d4" }}>{"}"}</div>
             </div>
           </div>
         </div>

@@ -16,6 +16,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/bolaji-david-135268241/",
     whatsapp: "https://wa.me/2349059916625",
     phone: "tel:09059916625",
+    calendly: "https://calendly.com/bolajidavid05/30min",
   },
 };
 
