@@ -775,40 +775,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           CTA BANNER
       ══════════════════════════════════════ */}
-      <section className="py-16" aria-label="CTA">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <MotionInView>
-            <div
-              className="relative overflow-hidden rounded-3xl p-10 sm:p-14 text-center"
-              style={{
-                background: "linear-gradient(135deg, color-mix(in oklab, rgb(var(--accentA)) 18%, rgb(var(--card))), color-mix(in oklab, rgb(var(--accentB)) 12%, rgb(var(--card))))",
-                border: "1px solid color-mix(in oklab, rgb(var(--accentA)) 30%, transparent)",
-              }}
-            >
-              <div className="pointer-events-none absolute left-1/2 top-0 h-48 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ background: "radial-gradient(ellipse, color-mix(in oklab, rgb(var(--accentA)) 30%, transparent), transparent 70%)", filter: "blur(40px)" }} aria-hidden />
-              <p className="eyebrow mb-4" style={{ color: "rgb(var(--accentB))" }}>Open to Work</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Ready to Build Something <span className="text-[rgb(var(--accentA))]">Remarkable?</span>
-              </h2>
-              <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[rgb(var(--muted))]">
-                I help teams ship reliable mobile and web products with clean UI, scalable architecture, and Firebase-backed features.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <a href="/#contact" className="btn-outline px-8 py-3">
-                  Let&apos;s Talk
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M7 17L17 7" /><path d="M7 7h10v10" /></svg>
-                </a>
-                <a href="/#projects" className="btn-outline px-8 py-3">See My Work</a>
-              </div>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-[rgb(var(--muted))]">
-                <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-green-400 inline-block" />Available for projects</span>
-                <span>⚡ Fast turnaround</span>
-                <span>🌍 Remote friendly</span>
-              </div>
-            </div>
-          </MotionInView>
-        </div>
-      </section>
+      
     </div>
   );
 }
