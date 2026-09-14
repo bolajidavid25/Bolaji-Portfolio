@@ -185,7 +185,7 @@ function FeaturedProjectCard({
 
             <div className="flex items-center gap-3 pt-2">
               {project.links.live && (
-                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-glow text-xs">View Live ↗</a>
+                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">View Live ↗</a>
               )}
               {project.links.github && (
                 <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">
@@ -211,8 +211,8 @@ function FeaturedProjectCard({
    TESTIMONIAL SLIDER
 ───────────────────────────────────────────── */
 const testimonials = [
-  { text: "Working together with David on Donsfarm, he was absolutely amazing and very resourceful. His inputs and ideas are among the leading factors that led to the development and deployment of Donsfarm.", author: "Sulaimon Quadri Dolapo", role: " CEO DonsFarm" },
-  { text: "I have known David for years now, and he has always helped with my projects while I was still in school. I am so proud and confident to put him in charge of my Gym web app. He is such a focused and tenacious fellow.", author: "Umar Faruk Babatunde ", role: "CEO Babs Cruz  Gym" },
+  { text: "Working together with David on Donsfarm, he was absolutely amazing and very resourceful. His inputs and ideas are among the leading factors that led to the development and deployment of Donsfarm.", author: "Sulaimon Quadri Dolapo", role: "CEO DonsFarm" },
+  { text: "I have known David for years now, and he has always helped with my projects while I was still in school. I am so proud and confident to put him in charge of my Gym web app. He is such a focused and tenacious fellow.", author: "Umar Faruk Babatunde", role: "CEO Babs Cruz Gym" },
 ];
 
 function TestimonialSlider() {
@@ -227,7 +227,7 @@ function TestimonialSlider() {
         <span className="block text-5xl font-serif leading-none mb-3" style={{ color: "rgb(var(--accentA))", opacity: 0.35 }} aria-hidden>&ldquo;</span>
         <p className="text-base leading-relaxed text-[rgb(var(--muted))]">{testimonials[current].text}</p>
         <div className="mt-5 flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold" style={{ background: "linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)))", color: "#fff" }}>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold" style={{ background: "rgb(var(--accentA))", color: "#fff" }}>
             {testimonials[current].author[0]}
           </div>
           <div>
@@ -287,10 +287,10 @@ export default function Home() {
               <MotionInView delay={100}>
                 <h1 className="mt-6 text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl">
                   Building{" "}
-                  <span className="gradient-text">Cross-Platform</span>
+                  <span className="text-[rgb(var(--accentA))]">Cross-Platform</span>
                   <br />
                   Apps That{" "}
-                  <span className="shimmer-text">Actually Scale.</span>
+                  <span className="text-[rgb(var(--accentA))]">Actually Scale.</span>
                 </h1>
               </MotionInView>
 
@@ -306,7 +306,7 @@ export default function Home() {
 
               <MotionInView delay={300}>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="/#contact" className="btn-glow">
+                  <a href="/#contact" className="btn-outline">
                     Hire Me
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                       <path d="M7 17L17 7" /><path d="M7 7h10v10" />
@@ -365,7 +365,7 @@ export default function Home() {
               <MotionInView>
                 <span className="eyebrow">About Me</span>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                  Building apps that <span className="gradient-text">feel native</span>, perform fast.
+                  Building apps that <span className="text-[rgb(var(--accentA))]">feel native</span>, perform fast.
                 </h2>
               </MotionInView>
 
@@ -401,7 +401,7 @@ export default function Home() {
 
               <MotionInView delay={420}>
                 <div className="mt-6 flex gap-3">
-                  <a href="/#contact" className="btn-glow text-sm">Work With Me</a>
+                  <a href="/#contact" className="btn-outline text-sm">Work With Me</a>
                   {profile.resumeUrl && <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-outline text-sm">Download CV</a>}
                 </div>
               </MotionInView>
@@ -460,7 +460,7 @@ export default function Home() {
           <MotionInView>
             <span className="eyebrow">What I Offer</span>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              Services &amp; <span className="gradient-text">Expertise</span>
+              Services &amp; <span className="text-[rgb(var(--accentA))]">Expertise</span>
             </h2>
             <p className="mt-3 max-w-xl text-sm text-[rgb(var(--muted))]">
               End-to-end product development — from UI design implementation to scalable backend integrations.
@@ -501,7 +501,7 @@ export default function Home() {
               <div>
                 <span className="eyebrow">My Work</span>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                  Featured <span className="gradient-text">Projects</span>
+                  Featured <span className="text-[rgb(var(--accentA))]">Projects</span>
                 </h2>
                 <p className="mt-3 max-w-xl text-sm text-[rgb(var(--muted))]">
                   Cross-platform mobile and web applications I&apos;ve built — each solving a real problem with clean, scalable code.
@@ -530,7 +530,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <MotionInView>
             <span className="eyebrow">Expertise</span>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">My <span className="gradient-text">Tech Stack</span></h2>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">My <span className="text-[rgb(var(--accentA))]">Tech Stack</span></h2>
           </MotionInView>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -574,7 +574,7 @@ export default function Home() {
               <MotionInView>
                 <span className="eyebrow">Work History</span>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">
-                  Where I&apos;ve Made an <span className="gradient-text">Impact</span>
+                  Where I&apos;ve Made an <span className="text-[rgb(var(--accentA))]">Impact</span>
                 </h2>
               </MotionInView>
 
@@ -607,38 +607,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Testimonials + Why work with me */}
+            {/* Testimonials */}
             <div>
               <MotionInView>
                 <span className="eyebrow">Testimonials</span>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">
-                  What Clients <span className="gradient-text">Say</span>
+                  What Clients <span className="text-[rgb(var(--accentA))]">Say</span>
                 </h2>
               </MotionInView>
               <MotionInView delay={120} className="mt-8">
                 <TestimonialSlider />
-              </MotionInView>
-
-              <MotionInView delay={200} className="mt-8">
-                <div className="glow-card glass rounded-2xl p-5" style={{ borderColor: "color-mix(in oklab, rgb(var(--border)) 70%, transparent)" }}>
-                  <h3 className="font-semibold text-sm mb-4">Why work with me</h3>
-                  <div className="space-y-3">
-                    {[
-                      { i: "01", title: "Product-minded execution", desc: "Pragmatic plans, sharp UX, performance-first decisions." },
-                      { i: "02", title: "Cross-platform efficiency", desc: "Faster iteration across iOS/Android with consistent quality." },
-                      { i: "03", title: "Clean, scalable architecture", desc: "Components and state that scale with your features." },
-                      { i: "04", title: "Reliable delivery", desc: "Clear communication and on-time shipping, always." },
-                    ].map((r) => (
-                      <div key={r.i} className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[color-mix(in_oklab,rgb(var(--accentA))_5%,transparent)]">
-                        <span className="rounded-lg px-2 py-1 text-[10px] font-bold shrink-0" style={{ background: "color-mix(in oklab, rgb(var(--accentA)) 12%, transparent)", color: "rgb(var(--accentA))" }}>{r.i}</span>
-                        <div>
-                          <p className="text-xs font-semibold">{r.title}</p>
-                          <p className="text-xs text-[rgb(var(--muted))] mt-0.5">{r.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </MotionInView>
             </div>
           </div>
@@ -656,7 +634,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <MotionInView>
             <span className="eyebrow">Education</span>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Academic <span className="gradient-text">Background</span></h2>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">Academic <span className="text-[rgb(var(--accentA))]">Background</span></h2>
           </MotionInView>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {aboutMe.education.map((edu, i) => (
@@ -686,7 +664,7 @@ export default function Home() {
               <MotionInView>
                 <span className="eyebrow">Get In Touch</span>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                  Let&apos;s Build Something <span className="gradient-text">Real</span>
+                  Let&apos;s Build Something <span className="text-[rgb(var(--accentA))]">Real</span>
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-[rgb(var(--muted))]">
                   Whether you need a Flutter mobile app, a Next.js web platform, or Firebase backend — I&apos;m here to help you ship it. Send a message and I&apos;ll get back to you within 24 hours.
@@ -759,7 +737,7 @@ export default function Home() {
                     href={profile.links.calendly}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 rounded-2xl p-4 border transition-all duration-200 group btn-glow"
+                    className="flex items-center justify-center gap-3 rounded-2xl p-4 border transition-all duration-200 group btn-outline"
                     style={{ borderColor: "color-mix(in oklab, rgb(var(--accentA)) 50%, transparent)", background: "color-mix(in oklab, rgb(var(--accentA)) 10%, transparent)" }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -810,13 +788,13 @@ export default function Home() {
               <div className="pointer-events-none absolute left-1/2 top-0 h-48 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ background: "radial-gradient(ellipse, color-mix(in oklab, rgb(var(--accentA)) 30%, transparent), transparent 70%)", filter: "blur(40px)" }} aria-hidden />
               <p className="eyebrow mb-4" style={{ color: "rgb(var(--accentB))" }}>Open to Work</p>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Ready to Build Something <span className="gradient-text">Remarkable?</span>
+                Ready to Build Something <span className="text-[rgb(var(--accentA))]">Remarkable?</span>
               </h2>
               <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[rgb(var(--muted))]">
                 I help teams ship reliable mobile and web products with clean UI, scalable architecture, and Firebase-backed features.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <a href="/#contact" className="btn-glow px-8 py-3">
+                <a href="/#contact" className="btn-outline px-8 py-3">
                   Let&apos;s Talk
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M7 17L17 7" /><path d="M7 7h10v10" /></svg>
                 </a>

@@ -97,7 +97,7 @@ export function SiteFooter() {
               aria-label="Home"
             >
               <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_60%,rgb(var(--muted)))]">[</span>
-              <span className="gradient-text">Bolaji</span>
+              <span className="text-[rgb(var(--accentA))]">Bolaji</span>
               <span className="text-[rgb(var(--accentB))]">.dev</span>
               <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_60%,rgb(var(--muted)))]">]</span>
             </Link>
@@ -143,7 +143,7 @@ export function SiteFooter() {
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-sm text-[rgb(var(--muted))]">
             © {year}{" "}
-            <span className="gradient-text font-semibold">Bolaji David</span>
+            <span className="text-[rgb(var(--accentA))] font-semibold">Bolaji David</span>
             {" "}— Built with Next.js &amp; Tailwind. Made with ❤️ in Nigeria.
           </p>
 

@@ -77,7 +77,7 @@ export function SiteHeader() {
             aria-label="Home"
           >
             <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_70%,rgb(var(--muted)))] group-hover:text-[rgb(var(--accentA))] transition-colors duration-200">[</span>
-            <span className="gradient-text">Bolaji</span>
+            <span className="text-[rgb(var(--accentA))]">Bolaji</span>
             <span className="text-[rgb(var(--accentB))]">.dev</span>
             <span className="text-[color-mix(in_oklab,rgb(var(--accentA))_70%,rgb(var(--muted)))] group-hover:text-[rgb(var(--accentA))] transition-colors duration-200">]</span>
           </Link>
@@ -153,7 +153,7 @@ export function SiteHeader() {
                 className={cn(
                   "rounded-xl px-4 py-3 text-sm font-medium transition-all",
                   active
-                    ? "gradient-text bg-[color-mix(in_oklab,rgb(var(--accentA))_8%,transparent)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--accentA))_25%,transparent)]"
+                    ? "text-[rgb(var(--accentA))] bg-[color-mix(in_oklab,rgb(var(--accentA))_8%,transparent)] ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--accentA))_25%,transparent)]"
                     : "text-[rgb(var(--muted))] hover:text-[rgb(var(--fg))] hover:bg-[color-mix(in_oklab,rgb(var(--card))_60%,transparent)]"
                 )}
               >
@@ -161,7 +161,7 @@ export function SiteHeader() {
               </a>
             );
           })}
-          <a href="/#contact" onClick={(e) => handleNavClick(e, "/#contact")} className="btn-glow mt-3 justify-center text-sm">
+          <a href="/#contact" onClick={(e) => handleNavClick(e, "/#contact")} className="btn-outline mt-3 justify-center text-sm">
             Hire Me ↗
           </a>
           <p className="mt-3 text-center text-xs text-[rgb(var(--muted))]">{profile.links.email}</p>
