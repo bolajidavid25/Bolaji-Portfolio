@@ -1,6 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { Smartphone, Laptop, Zap } from "lucide-react";
+import {
+  SiFlutter,
+  SiFirebase,
+  SiDart,
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+} from "react-icons/si";
 
 /* ─── Floating tech badge ─────────────────────────────────── */
 function TechBadge({
@@ -16,11 +26,9 @@ function TechBadge({
     <span
       className="float-badge absolute z-20 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-md border"
       style={{
-        background: "color-mix(in oklab, rgb(var(--card)) 85%, transparent)",
+        background: "color-mix(in oklab, rgb(var(--card)) 90%, transparent)",
         borderColor: "color-mix(in oklab, rgb(var(--accentA)) 40%, transparent)",
         color: "rgb(var(--fg))",
-        boxShadow:
-          "0 4px 16px -4px color-mix(in oklab, rgb(var(--accentA)) 30%, transparent)",
         ...style,
       }}
       aria-hidden="true"
@@ -423,22 +431,22 @@ function LaptopMockup() {
 
 /* ─── Main DeviceSlider ─────────────────────────────────────── */
 const DEVICES = [
-  { key: "phone", label: "Flutter App", emoji: "📱" },
-  { key: "laptop", label: "Web App", emoji: "💻" },
+  { key: "phone", label: "Flutter App", Icon: Smartphone },
+  { key: "laptop", label: "Web App", Icon: Laptop },
 ] as const;
 
 const PHONE_BADGES = [
-  { label: "Flutter", emoji: "🐦", style: { top: "5%", left: "-10%" } },
-  { label: "Firebase", emoji: "🔥", style: { top: "35%", right: "-15%" } },
-  { label: "Dart", emoji: "🎯", style: { bottom: "20%", left: "-15%" } },
-  { label: "Riverpod", emoji: "⚡", style: { bottom: "8%", right: "-10%" } },
+  { label: "Flutter", icon: <SiFlutter className="w-4 h-4 text-[#54C5F8]" />, style: { top: "5%", left: "-10%" } },
+  { label: "Firebase", icon: <SiFirebase className="w-4 h-4 text-[#FFCA28]" />, style: { top: "35%", right: "-15%" } },
+  { label: "Dart", icon: <SiDart className="w-4 h-4 text-[#0175C2]" />, style: { bottom: "20%", left: "-15%" } },
+  { label: "Riverpod", icon: <Zap className="w-4 h-4 text-[#00D2FF]" />, style: { bottom: "8%", right: "-10%" } },
 ];
 
 const LAPTOP_BADGES = [
-  { label: "Next.js", emoji: "▲", style: { top: "5%", left: "-2%" } },
-  { label: "React", emoji: "⚛️", style: { top: "35%", right: "-8%" } },
-  { label: "TypeScript", emoji: "🔷", style: { bottom: "20%", left: "-6%" } },
-  { label: "Tailwind", emoji: "🎨", style: { bottom: "8%", right: "-4%" } },
+  { label: "Next.js", icon: <SiNextdotjs className="w-4 h-4 text-white" />, style: { top: "5%", left: "-2%" } },
+  { label: "React", icon: <SiReact className="w-4 h-4 text-[#61DAFB]" />, style: { top: "35%", right: "-8%" } },
+  { label: "TypeScript", icon: <SiTypescript className="w-4 h-4 text-[#3178C6]" />, style: { bottom: "20%", left: "-6%" } },
+  { label: "Tailwind", icon: <SiTailwindcss className="w-4 h-4 text-[#06B6D4]" />, style: { bottom: "8%", right: "-4%" } },
 ];
 
 export function DeviceSlider() {
@@ -459,21 +467,17 @@ export function DeviceSlider() {
           <button
             key={d.key}
             onClick={() => setActive(d.key)}
-            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300"
+            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200"
             style={
               active === d.key
                 ? {
-                    background:
-                      "linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)))",
+                    background: "rgb(var(--accentA))",
                     color: "#fff",
-                    boxShadow:
-                      "0 2px 12px -2px color-mix(in oklab, rgb(var(--accentA)) 50%, transparent)",
                   }
                 : { color: "rgb(var(--muted))" }
             }
           >
-            <span>{d.emoji}</span>
-            {d.label}
+            <span className="flex items-center gap-1.5"><d.Icon className="w-4 h-4" />{d.label}</span>
           </button>
         ))}
       </div>
@@ -483,32 +487,9 @@ export function DeviceSlider() {
         className="relative"
         style={{ width: active === "phone" ? 340 : 520, height: active === "phone" ? 580 : 400 }}
       >
-        {/* Orbit rings (phone only) */}
-        {active === "phone" && (
-          <>
-            {[360, 440, 520].map((size, i) => (
-              <div
-                key={i}
-                className="orbit-ring"
-                style={{
-                  width: size,
-                  height: size,
-                  top: "50%",
-                  left: "50%",
-                  marginTop: -size / 2,
-                  marginLeft: -size / 2,
-                  animationDuration: `${20 + i * 10}s`,
-                  animationDirection: i % 2 === 0 ? "normal" : "reverse",
-                }}
-                aria-hidden="true"
-              />
-            ))}
-          </>
-        )}
-
         {/* Floating tech badges */}
         {badges.map((b) => (
-          <TechBadge key={b.label} label={b.label} icon={b.emoji} style={b.style} />
+          <TechBadge key={b.label} label={b.label} icon={b.icon} style={b.style} />
         ))}
 
         {/* Device mockup with fade transition */}

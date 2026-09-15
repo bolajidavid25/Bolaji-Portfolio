@@ -9,9 +9,9 @@
   --muted: 148 163 184;
   --card: 13 16 28;
   --border: 30 35 58;
-  --accentA: 139 92 246;
-  --accentB: 6 182 212;
-  --ring: 139 92 246;
+  --accentA: 37 99 235; /* Blue */
+  --accentB: 59 130 246; /* Blue Light */
+  --ring: 37 99 235;
 }
 
 .light {
@@ -20,9 +20,9 @@
   --muted: 100 116 139;
   --card: 255 255 255;
   --border: 220 225 240;
-  --accentA: 109 40 217;
-  --accentB: 8 145 178;
-  --ring: 109 40 217;
+  --accentA: 37 99 235; /* Blue */
+  --accentB: 59 130 246; /* Blue Light */
+  --ring: 37 99 235;
 }
 
 @theme inline {
@@ -218,43 +218,28 @@ a, button, [role="button"], input, textarea, select, label {
 ───────────────────────────────────────────── */
 @layer utilities {
 
-  /* Gradient text */
+  /* Text Accent */
   .gradient-text {
-    background: linear-gradient(135deg, rgb(var(--accentA)) 0%, rgb(var(--accentB)) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: rgb(var(--accentA));
   }
 
-  /* Shimmer gradient text */
+  /* Shimmer text */
   .shimmer-text {
-    background: linear-gradient(90deg, rgb(var(--accentA)) 0%, rgb(var(--accentB)) 40%, rgb(var(--accentA)) 80%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: shimmer 3s linear infinite;
+    color: rgb(var(--accentA));
   }
 
   /* Glass card */
   .glass {
     background: color-mix(in oklab, rgb(var(--card)) 75%, transparent);
     border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
   }
 
-  /* Glow card */
+  /* Glow card (Clean border card without glow) */
   .glow-card {
     position: relative;
-    transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
   }
   .glow-card:hover {
-    box-shadow: 0 0 0 1px color-mix(in oklab, rgb(var(--accentA)) 40%, transparent),
-                0 8px 40px -8px color-mix(in oklab, rgb(var(--accentA)) 30%, transparent);
-    transform: translateY(-3px);
     border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent) !important;
   }
 
@@ -262,16 +247,11 @@ a, button, [role="button"], input, textarea, select, label {
   .reveal-up {
     opacity: 0;
     transform: translateY(28px);
-    filter: blur(4px);
-    transition:
-      opacity    0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      transform  0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      filter     0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reveal-up.is-visible {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 
   /* Marquee */
@@ -295,9 +275,9 @@ a, button, [role="button"], input, textarea, select, label {
     gap: 0.5rem;
     padding: 0.35rem 1rem;
     border-radius: 9999px;
-    border: 1px solid color-mix(in oklab, rgb(var(--accentB)) 40%, transparent);
-    background: color-mix(in oklab, rgb(var(--accentB)) 8%, transparent);
-    color: rgb(var(--accentB));
+    border: 1px solid color-mix(in oklab, rgb(var(--accentA)) 40%, transparent);
+    background: color-mix(in oklab, rgb(var(--accentA)) 8%, transparent);
+    color: rgb(var(--accentA));
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.04em;
@@ -306,8 +286,7 @@ a, button, [role="button"], input, textarea, select, label {
     width: 7px;
     height: 7px;
     border-radius: 9999px;
-    background: rgb(var(--accentB));
-    animation: pulse-glow 2s ease-in-out infinite;
+    background: rgb(var(--accentA));
   }
 
   /* Section eyebrow */
@@ -352,7 +331,7 @@ a, button, [role="button"], input, textarea, select, label {
     color: rgb(var(--fg));
   }
 
-  /* Button primary glow */
+  /* Button primary */
   .btn-glow {
     position: relative;
     display: inline-flex;
@@ -362,15 +341,12 @@ a, button, [role="button"], input, textarea, select, label {
     border-radius: 9999px;
     font-weight: 600;
     font-size: 0.875rem;
-    background: linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)));
+    background: rgb(var(--accentA));
     color: #fff;
-    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px -4px color-mix(in oklab, rgb(var(--accentA)) 55%, transparent);
+    transition: background 0.2s, transform 0.2s;
   }
   .btn-glow:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px -6px color-mix(in oklab, rgb(var(--accentA)) 60%, transparent);
+    opacity: 0.92;
   }
   .btn-glow:active { transform: translateY(0); }
 
@@ -386,12 +362,11 @@ a, button, [role="button"], input, textarea, select, label {
     border: 1px solid color-mix(in oklab, rgb(var(--border)) 90%, transparent);
     background: color-mix(in oklab, rgb(var(--card)) 60%, transparent);
     color: rgb(var(--fg));
-    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    transition: border-color 0.2s, background 0.2s;
   }
   .btn-outline:hover {
     border-color: color-mix(in oklab, rgb(var(--accentA)) 55%, transparent);
     background: color-mix(in oklab, rgb(var(--accentA)) 8%, transparent);
-    transform: translateY(-2px);
   }
 
   /* Code window */
@@ -448,12 +423,7 @@ a, button, [role="button"], input, textarea, select, label {
     position: absolute;
     left: 9px; top: 24px; bottom: 0;
     width: 1px;
-    background: linear-gradient(
-      to bottom,
-      color-mix(in oklab, rgb(var(--accentA)) 60%, transparent),
-      color-mix(in oklab, rgb(var(--border)) 30%, transparent) 80%,
-      transparent
-    );
+    background: rgb(var(--accentA));
   }
   .timeline-item:last-child::before { display: none; }
   .timeline-dot {
@@ -461,8 +431,7 @@ a, button, [role="button"], input, textarea, select, label {
     left: 0; top: 4px;
     width: 20px; height: 20px;
     border-radius: 9999px;
-    background: linear-gradient(135deg, rgb(var(--accentA)), rgb(var(--accentB)));
-    box-shadow: 0 0 0 4px color-mix(in oklab, rgb(var(--accentA)) 18%, transparent);
+    background: rgb(var(--accentA));
   }
 
   /* Orbit ring */
@@ -470,21 +439,13 @@ a, button, [role="button"], input, textarea, select, label {
     position: absolute;
     border-radius: 50%;
     border: 1px dashed color-mix(in oklab, rgb(var(--border)) 60%, transparent);
-    animation: spin-slow linear infinite;
     top: 50%;
     left: 50%;
   }
 
   /* Star field */
   .star-field {
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
-      radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
-    background-size: 180px 180px, 300px 300px;
-    background-position: 0 0, 60px 80px;
-    pointer-events: none;
+    display: none;
   }
 
   /* BG grid */
@@ -495,12 +456,9 @@ a, button, [role="button"], input, textarea, select, label {
     background-size: 24px 24px, 72px 72px;
   }
 
-  /* Hero orb */
+  /* Hero orb - removed glow orbs */
   .hero-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
+    display: none;
   }
 
   /* Project image wrap */
@@ -522,12 +480,11 @@ a, button, [role="button"], input, textarea, select, label {
     padding: 1.5rem;
     border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
     background: color-mix(in oklab, rgb(var(--card)) 70%, transparent);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: border-color 0.3s ease, background 0.3s ease;
   }
   .skill-card:hover {
     border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent);
-    background: color-mix(in oklab, rgb(var(--accentA)) 5%, rgb(var(--card)));
-    box-shadow: 0 4px 24px -6px color-mix(in oklab, rgb(var(--accentA)) 25%, transparent);
+    background: color-mix(in oklab, rgb(var(--card)) 85%, transparent);
   }
 
   /* Stat card */
@@ -537,10 +494,9 @@ a, button, [role="button"], input, textarea, select, label {
     border: 1px solid color-mix(in oklab, rgb(var(--border)) 70%, transparent);
     background: color-mix(in oklab, rgb(var(--card)) 70%, transparent);
     text-align: center;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.3s;
   }
   .stat-card:hover {
     border-color: color-mix(in oklab, rgb(var(--accentA)) 50%, transparent);
-    transform: translateY(-4px);
   }
 }

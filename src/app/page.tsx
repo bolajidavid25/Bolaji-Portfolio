@@ -11,30 +11,47 @@ import { projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { aboutMe } from "@/data/about";
 
-/* React-icons for marquee */
-import { FaReact, FaNodeJs, FaGitAlt, FaAndroid, FaMobileAlt } from "react-icons/fa";
+// Lucide icons for UI
 import {
-  SiNextdotjs, SiFlutter, SiFirebase, SiTypescript,
-  SiTailwindcss, SiDart, SiSupabase, SiVercel,
+  Rocket,
+  Smartphone,
+  Settings,
+  User,
+  Globe,
+  Zap,
+  Wrench,
+  GraduationCap,
+} from "lucide-react";
+
+// Official brand icons
+import {
+  SiFlutter,
+  SiReact,
+  SiNextdotjs,
+  SiFirebase,
+  SiTypescript,
+  SiTailwindcss,
+  SiDart,
+  SiSupabase,
+  SiVercel,
+  SiNodedotjs,
+  SiFigma,
 } from "react-icons/si";
 
 /* ─────────────────────────────────────────────
-   MARQUEE TECH TICKER (real icons)
+   MARQUEE TECH TICKER (official brand logos & colors)
 ───────────────────────────────────────────── */
 const techLogos = [
-  { Icon: SiFlutter,     label: "Flutter",       color: "#54C5F8" },
-  { Icon: FaReact,       label: "React",         color: "#61DAFB" },
-  { Icon: SiNextdotjs,   label: "Next.js",       color: "#FFFFFF" },
-  { Icon: FaMobileAlt,   label: "React Native",  color: "#61DAFB" },
-  { Icon: SiFirebase,    label: "Firebase",      color: "#FFCA28" },
-  { Icon: SiTypescript,  label: "TypeScript",    color: "#3178C6" },
-  { Icon: SiTailwindcss, label: "Tailwind CSS",  color: "#06B6D4" },
-  { Icon: SiDart,        label: "Dart",          color: "#0175C2" },
-  { Icon: FaNodeJs,      label: "Node.js",       color: "#339933" },
-  { Icon: FaGitAlt,      label: "Git",           color: "#F05032" },
-  { Icon: FaAndroid,     label: "Android",       color: "#3DDC84" },
-  { Icon: SiVercel,      label: "Vercel",        color: "#FFFFFF" },
-  { Icon: SiSupabase,    label: "Supabase",      color: "#3ECF8E" },
+  { icon: <SiFlutter size={18} color="#54C5F8" />, label: "Flutter" },
+  { icon: <SiReact size={18} color="#61DAFB" />, label: "React" },
+  { icon: <SiNextdotjs size={18} color="#FFFFFF" />, label: "Next.js" },
+  { icon: <SiReact size={18} color="#61DAFB" />, label: "React Native" },
+  { icon: <SiFirebase size={18} color="#FFCA28" />, label: "Firebase" },
+  { icon: <SiTypescript size={18} color="#3178C6" />, label: "TypeScript" },
+  { icon: <SiTailwindcss size={18} color="#06B6D4" />, label: "Tailwind CSS" },
+  { icon: <SiDart size={18} color="#0175C2" />, label: "Dart" },
+  { icon: <SiSupabase size={18} color="#3ECF8E" />, label: "Supabase" },
+  { icon: <SiVercel size={18} color="#FFFFFF" />, label: "Vercel" },
 ];
 
 function MarqueeTicker() {
@@ -54,9 +71,9 @@ function MarqueeTicker() {
           <span
             key={i}
             className="mx-7 inline-flex items-center gap-2.5 text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-100"
-            style={{ color: "rgb(var(--muted))", opacity: 0.65 }}
+            style={{ color: "rgb(var(--muted))", opacity: 0.85 }}
           >
-            <item.Icon size={18} style={{ color: item.color, flexShrink: 0 }} />
+            {item.icon}
             <span>{item.label}</span>
             <span style={{ marginLeft: 8, opacity: 0.25 }}>·</span>
           </span>
@@ -130,10 +147,7 @@ function FeaturedProjectCard({
         <div className={`flex flex-col gap-8 items-start ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"}`}>
           {/* Image */}
           <div className="w-full lg:w-[46%] flex-shrink-0">
-            <div
-              className="project-img-wrap aspect-video"
-              style={{ boxShadow: "0 20px 60px -15px color-mix(in oklab, rgb(var(--accentA)) 25%, transparent)" }}
-            >
+            <div className="project-img-wrap aspect-video">
               {project.image ? (
                 <Image
                   src={project.image}
@@ -144,11 +158,10 @@ function FeaturedProjectCard({
                 />
               ) : (
                 <div
-                  className="flex h-full w-full items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, color-mix(in oklab, rgb(var(--accentA)) 15%, transparent), color-mix(in oklab, rgb(var(--accentB)) 10%, transparent))" }}
+                  className="flex h-full w-full items-center justify-center bg-[color-mix(in_oklab,rgb(var(--card))_90%,transparent)]"
                 >
-                  <span className="text-5xl opacity-30">
-                    {project.category === "Flutter" || project.category === "React Native" ? "📱" : "🌐"}
+                  <span className="text-sm text-[rgb(var(--muted))]">
+                    {project.category}
                   </span>
                 </div>
               )}
@@ -162,11 +175,7 @@ function FeaturedProjectCard({
               <span className="text-xs text-[rgb(var(--muted))]">{String(index + 1).padStart(2, "0")}</span>
             </div>
 
-            <h3 className="text-2xl font-bold tracking-tight">
-              {project.links.live ? (
-                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="wavy-link hover:text-[rgb(var(--accentA))] transition-colors">{project.title}</a>
-              ) : project.title}
-            </h3>
+            <h3 className="text-2xl font-bold tracking-tight">{project.title}</h3>
 
             <p className="text-sm leading-relaxed text-[rgb(var(--muted))]">{project.summary}</p>
 
@@ -184,10 +193,7 @@ function FeaturedProjectCard({
             </div>
 
             <div className="flex items-center gap-3 pt-2">
-              {project.links.live && (
-                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">View Live ↗</a>
-              )}
-              {project.links.github && (
+              {project.links.github ? (
                 <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">
                   <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -195,10 +201,7 @@ function FeaturedProjectCard({
                   </svg>
                   GitHub
                 </a>
-              )}
-              <Link href={`/projects/${project.slug}`} className="text-xs text-[rgb(var(--muted))] hover:text-[rgb(var(--fg))] transition-colors underline underline-offset-4">
-                Case study →
-              </Link>
+              ) : null}
             </div>
           </div>
         </div>
@@ -319,17 +322,20 @@ export default function Home() {
 
               <MotionInView delay={420}>
                 <div className="mt-10 grid grid-cols-3 gap-3">
-                  {[
-                    { val: "3+", label: "Years Exp.", emoji: "🚀" },
-                    { val: "5+", label: "Apps Shipped", emoji: "📱" },
-                    { val: "10+", label: "Technologies", emoji: "⚙️" },
-                  ].map((s) => (
-                    <div key={s.label} className="stat-card">
-                      <div className="text-2xl mb-1">{s.emoji}</div>
-                      <p className="text-xl font-bold">{s.val}</p>
-                      <p className="text-[11px] text-[rgb(var(--muted))]">{s.label}</p>
-                    </div>
-                  ))}
+                  {(() => {
+                    const stats = [
+                      { val: "3+", label: "Years Exp.", Icon: Rocket },
+                      { val: "5+", label: "Apps Shipped", Icon: Smartphone },
+                      { val: "10+", label: "Technologies", Icon: Settings },
+                    ];
+                    return stats.map((s) => (
+                      <div key={s.label} className="stat-card">
+                        <div className="text-2xl mb-1"><s.Icon className="w-6 h-6" /></div>
+                        <p className="text-xl font-bold">{s.val}</p>
+                        <p className="text-[11px] text-[rgb(var(--muted))]">{s.label}</p>
+                      </div>
+                    ));
+                  })()}
                 </div>
               </MotionInView>
             </div>
@@ -409,20 +415,23 @@ export default function Home() {
 
             {/* KPI cards */}
             <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "3+", label: "Years Building", icon: "🧑‍💻" },
-                { value: "5+", label: "Apps Shipped",   icon: "📱" },
-                { value: "10+", label: "Global Clients", icon: "🌍" },
-                { value: "100%", label: "Cross-Platform", icon: "⚡" },
-              ].map((kpi, i) => (
-                <MotionInView key={kpi.label} delay={i * 80}>
-                  <div className="skill-card text-center" style={i === 1 ? { background: "linear-gradient(135deg, color-mix(in oklab, rgb(var(--accentA)) 12%, rgb(var(--card))), color-mix(in oklab, rgb(var(--accentB)) 8%, rgb(var(--card))))", borderColor: "color-mix(in oklab, rgb(var(--accentA)) 35%, transparent)" } : {}}>
-                    <div className="text-3xl mb-3">{kpi.icon}</div>
-                    <p className="text-3xl font-bold tracking-tight">{kpi.value}</p>
-                    <p className="mt-1 text-xs text-[rgb(var(--muted))]">{kpi.label}</p>
-                  </div>
-                </MotionInView>
-              ))}
+              {(() => {
+                const kpis = [
+                  { value: "3+", label: "Years Building", Icon: User },
+                  { value: "5+", label: "Apps Shipped", Icon: Smartphone },
+                  { value: "10+", label: "Global Clients", Icon: Globe },
+                  { value: "100%", label: "Cross-Platform", Icon: Zap },
+                ];
+                return kpis.map((kpi, i) => (
+                  <MotionInView key={kpi.label} delay={i * 80}>
+                    <div className="skill-card text-center" style={i === 1 ? { background: "linear-gradient(135deg, color-mix(in oklab, rgb(var(--accentA)) 12%, rgb(var(--card))), color-mix(in oklab, rgb(var(--accentB)) 8%, rgb(var(--card)))", borderColor: "color-mix(in oklab, rgb(var(--accentA)) 35%, transparent)" } : {}}>
+                      <div className="text-3xl mb-3 flex justify-center"><kpi.Icon className="w-6 h-6" /></div>
+                      <p className="text-3xl font-bold tracking-tight">{kpi.value}</p>
+                      <p className="mt-1 text-xs text-[rgb(var(--muted))]">{kpi.label}</p>
+                    </div>
+                  </MotionInView>
+                ));
+              })()}
 
               {/* Code snippet */}
               <MotionInView delay={360} className="col-span-2">
@@ -469,15 +478,15 @@ export default function Home() {
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: "📱", title: "Mobile App Development", desc: "Cross-platform iOS & Android apps with Flutter and React Native. Clean architecture, state management, and native-feel UX.", tags: ["Flutter", "React Native", "Dart"] },
-              { icon: "🌐", title: "Web Development", desc: "Responsive, performant web apps with Next.js and React. Server components, SEO, and lightning-fast Core Web Vitals.", tags: ["Next.js", "React", "TypeScript"] },
-              { icon: "🔗", title: "API & Backend Integration", desc: "Firebase, Node.js, REST APIs, third-party payment gateways and auth integrations built for scale.", tags: ["Firebase", "Node.js", "REST"] },
-              { icon: "🎨", title: "UI/UX Implementation", desc: "Pixel-perfect, animated interfaces from Figma or design specs. Tailwind, custom CSS, and smooth transitions.", tags: ["Tailwind CSS", "Figma", "CSS"] },
+              { icon: <SiFlutter className="w-6 h-6 text-[#54C5F8]" />, title: "Mobile App Development", desc: "Cross-platform iOS & Android apps with Flutter and React Native. Clean architecture, state management, and native-feel UX.", tags: ["Flutter", "React Native", "Dart"] },
+              { icon: <SiReact className="w-6 h-6 text-[#61DAFB]" />, title: "Web Development", desc: "Responsive, performant web apps with Next.js and React. Server components, SEO, and lightning-fast Core Web Vitals.", tags: ["Next.js", "React", "TypeScript"] },
+              { icon: <SiFirebase className="w-6 h-6 text-[#FFCA28]" />, title: "API & Backend Integration", desc: "Firebase, Node.js, REST APIs, third-party payment gateways and auth integrations built for scale.", tags: ["Firebase", "Node.js", "REST"] },
+              { icon: <SiTailwindcss className="w-6 h-6 text-[#06B6D4]" />, title: "UI/UX Implementation", desc: "Pixel-perfect, animated interfaces from Figma or design specs. Tailwind, custom CSS, and smooth transitions.", tags: ["Tailwind CSS", "Figma", "CSS"] },
             ].map((svc, i) => (
               <MotionInView key={svc.title} delay={i * 80}>
                 <TiltCard intensity={8}>
                   <div className="skill-card h-full flex flex-col">
-                    <span className="text-3xl mb-3">{svc.icon}</span>
+                    <div className="text-3xl mb-3">{svc.icon}</div>
                     <h3 className="font-semibold text-sm mb-2">{svc.title}</h3>
                     <p className="text-xs leading-relaxed text-[rgb(var(--muted))] mb-4">{svc.desc}</p>
                     <div className="mt-auto flex flex-wrap gap-1.5">
@@ -535,17 +544,17 @@ export default function Home() {
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: "📱", cat: "Mobile",       count: "5+ projects", desc: "Cross-platform mobile development for iOS and Android.", techs: aboutMe.skills.mobile },
-              { icon: "🌐", cat: "Frontend",      count: "10+ builds",  desc: "Responsive, performant web interfaces with modern tooling.", techs: aboutMe.skills.frontend },
-              { icon: "🔧", cat: "Backend & APIs", count: "3+ projects", desc: "Scalable server-side services and third-party integrations.", techs: aboutMe.skills.backend },
-              { icon: "⚙️", cat: "Core & Tools",  count: "Daily",       desc: "Foundational languages, tooling, and engineering principles.", techs: [...aboutMe.skills.core, ...aboutMe.skills.tools].slice(0, 6) },
+              { icon: <SiFlutter className="w-6 h-6 text-[#54C5F8]" />, cat: "Mobile",       count: "5+ projects", desc: "Cross-platform mobile development for iOS and Android.", techs: aboutMe.skills.mobile },
+              { icon: <SiNextdotjs className="w-6 h-6 text-white" />, cat: "Frontend",      count: "10+ builds",  desc: "Responsive, performant web interfaces with modern tooling.", techs: aboutMe.skills.frontend },
+              { icon: <SiNodedotjs className="w-6 h-6 text-[#5FA04E]" />, cat: "Backend & APIs", count: "3+ projects", desc: "Scalable server-side services and third-party integrations.", techs: aboutMe.skills.backend },
+              { icon: <SiTypescript className="w-6 h-6 text-[#3178C6]" />, cat: "Core & Tools",  count: "Daily",       desc: "Foundational languages, tooling, and engineering principles.", techs: [...aboutMe.skills.core, ...aboutMe.skills.tools].slice(0, 6) },
             ].map((cat, i) => (
               <MotionInView key={cat.cat} delay={i * 80}>
                 <TiltCard intensity={10}>
                   <div className="skill-card h-full flex flex-col">
                     <div className="flex items-center justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl">{cat.icon}</span>
+                        {cat.icon}
                         <h3 className="font-semibold text-sm">{cat.cat}</h3>
                       </div>
                       <span className="rounded-full px-2 py-0.5 text-[10px] font-medium whitespace-nowrap" style={{ background: "color-mix(in oklab, rgb(var(--accentA)) 12%, transparent)", color: "rgb(var(--accentA))" }}>{cat.count}</span>
@@ -641,7 +650,7 @@ export default function Home() {
               <MotionInView key={i} delay={i * 100}>
                 <TiltCard intensity={8}>
                   <div className="glow-card skill-card">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg" style={{ background: "color-mix(in oklab, rgb(var(--accentA)) 12%, transparent)" }}>🎓</div>
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg" style={{ background: "color-mix(in oklab, rgb(var(--accentA)) 12%, transparent)" }}><GraduationCap className="w-6 h-6 text-[rgb(var(--accentA))]" /></div>
                     <h3 className="font-semibold">{edu.degree}</h3>
                     <p className="text-sm mt-1" style={{ color: "rgb(var(--accentA))" }}>{edu.institution}</p>
                     <time className="text-xs text-[rgb(var(--muted))] mt-1 block">{edu.timeframe}</time>

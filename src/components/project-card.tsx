@@ -25,7 +25,7 @@ export function ProjectCard({
     <article
       className={cn(
         "group overflow-hidden rounded-2xl ring-1 ring-inset ring-[color-mix(in_oklab,rgb(var(--border))_75%,transparent)] bg-[color-mix(in_oklab,rgb(var(--card))_85%,transparent)]",
-        "transition hover:-translate-y-0.5 hover:shadow-[0_20px_60px_-30px_color-mix(in_oklab,rgb(var(--accentA))_40%,transparent)]",
+        "transition hover:-translate-y-0.5",
       )}
     >
       <div className="relative aspect-[16/9] overflow-hidden">
@@ -38,14 +38,9 @@ export function ProjectCard({
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,color-mix(in_oklab,rgb(var(--accentA))_40%,transparent),transparent_55%)]" />
+          <div className="absolute inset-0 bg-[color-mix(in_oklab,rgb(var(--card))_90%,transparent)]" />
         )}
-        {!project.image ? (
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,color-mix(in_oklab,rgb(var(--accentB))_35%,transparent),transparent_60%)]" />
-        ) : null}
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.62),transparent_62%)] opacity-90" />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_oklab,rgb(var(--card))_20%,transparent),transparent_50%)]" />
-        <div className="absolute right-4 top-4 max-w-[62%] rounded-xl border border-white/15 bg-black/35 px-3 py-2 text-xs text-white/80 backdrop-blur">
+        <div className="absolute right-4 top-4 max-w-[62%] rounded-xl border border-white/15 bg-black/35 px-3 py-2 text-xs text-white/80">
           {project.preview}
         </div>
         <div className="absolute bottom-4 left-5 right-5">
@@ -108,17 +103,6 @@ export function ProjectCard({
             >
               <Github className="h-4 w-4" />
               GitHub
-            </Link>
-          ) : null}
-          {project.links.live ? (
-            <Link
-              href={project.links.live}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full px-3 py-2 hover:bg-[color-mix(in_oklab,rgb(var(--card))_75%,transparent)] transition"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Live Demo
             </Link>
           ) : null}
           {hasScreenshots ? (

@@ -75,17 +75,6 @@ export function SiteFooter() {
 
   return (
     <footer className="relative mt-16 overflow-hidden border-t border-[color-mix(in_oklab,rgb(var(--border))_60%,transparent)]">
-      {/* Subtle glow */}
-      <div
-        className="pointer-events-none absolute left-1/2 -top-24 h-48 w-[600px] -translate-x-1/2 rounded-full opacity-20"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgb(var(--accentA)), transparent 70%)",
-          filter: "blur(40px)",
-        }}
-        aria-hidden
-      />
-
       <div className="relative mx-auto max-w-6xl px-5 py-14 md:px-8">
         {/* Top row */}
         <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
@@ -127,8 +116,7 @@ export function SiteFooter() {
                   transition-all duration-200
                   hover:border-[color-mix(in_oklab,rgb(var(--accentA))_50%,transparent)]
                   hover:bg-[color-mix(in_oklab,rgb(var(--accentA))_10%,transparent)]
-                  hover:text-[rgb(var(--fg))]
-                  hover:shadow-[0_0_16px_-4px_color-mix(in_oklab,rgb(var(--accentA))_40%,transparent)]"
+                  hover:text-[rgb(var(--fg))]"
               >
                 {s.icon}
               </a>
@@ -144,7 +132,7 @@ export function SiteFooter() {
           <p className="text-sm text-[rgb(var(--muted))]">
             © {year}{" "}
             <span className="text-[rgb(var(--accentA))] font-semibold">Bolaji David</span>
-            {" "}— Built with Next.js &amp; Tailwind. Made with ❤️ in Nigeria.
+            {" "}— Built with Next.js &amp; Tailwind CSS. Made in Nigeria.
           </p>
 
           <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2" aria-label="Footer navigation">
